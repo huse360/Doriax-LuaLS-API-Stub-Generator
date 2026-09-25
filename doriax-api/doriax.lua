@@ -14,6 +14,627 @@ function RegisterEvent(self, event, methodName, tag?) end
 ---@param tag? string
 function RegisterEngineEvent(self, methodName, tag?) end
 
+---@class ActionState
+---@field Paused any
+---@field Running any
+---@field Stopped any
+ActionState = {}
+ActionState.Paused = nil
+ActionState.Running = nil
+ActionState.Stopped = nil
+
+---@class AdMobRating
+---@field General any
+---@field MatureAudience any
+---@field ParentalGuidance any
+---@field Teen any
+AdMobRating = {}
+AdMobRating.General = nil
+AdMobRating.MatureAudience = nil
+AdMobRating.ParentalGuidance = nil
+AdMobRating.Teen = nil
+
+---@class AnchorPreset
+---@field BOTTOM_LEFT any
+---@field BOTTOM_RIGHT any
+---@field BOTTOM_WIDE any
+---@field CENTER any
+---@field CENTER_BOTTOM any
+---@field CENTER_LEFT any
+---@field CENTER_RIGHT any
+---@field CENTER_TOP any
+---@field FULL_LAYOUT any
+---@field HORIZONTAL_CENTER_WIDE any
+---@field LEFT_WIDE any
+---@field NONE any
+---@field RIGHT_WIDE any
+---@field TOP_LEFT any
+---@field TOP_RIGHT any
+---@field TOP_WIDE any
+---@field VERTICAL_CENTER_WIDE any
+AnchorPreset = {}
+AnchorPreset.BOTTOM_LEFT = nil
+AnchorPreset.BOTTOM_RIGHT = nil
+AnchorPreset.BOTTOM_WIDE = nil
+AnchorPreset.CENTER = nil
+AnchorPreset.CENTER_BOTTOM = nil
+AnchorPreset.CENTER_LEFT = nil
+AnchorPreset.CENTER_RIGHT = nil
+AnchorPreset.CENTER_TOP = nil
+AnchorPreset.FULL_LAYOUT = nil
+AnchorPreset.HORIZONTAL_CENTER_WIDE = nil
+AnchorPreset.LEFT_WIDE = nil
+AnchorPreset.NONE = nil
+AnchorPreset.RIGHT_WIDE = nil
+AnchorPreset.TOP_LEFT = nil
+AnchorPreset.TOP_RIGHT = nil
+AnchorPreset.TOP_WIDE = nil
+AnchorPreset.VERTICAL_CENTER_WIDE = nil
+
+---@class Body3DMotionQuality
+---@field DISCRETE any
+---@field LINEAR_CAST any
+Body3DMotionQuality = {}
+Body3DMotionQuality.DISCRETE = nil
+Body3DMotionQuality.LINEAR_CAST = nil
+
+---@class BodyType
+---@field DYNAMIC any
+---@field KINEMATIC any
+---@field STATIC any
+BodyType = {}
+BodyType.DYNAMIC = nil
+BodyType.KINEMATIC = nil
+BodyType.STATIC = nil
+
+---@class CameraType
+---@field CAMERA_ORTHO any
+---@field CAMERA_PERSPECTIVE any
+---@field CAMERA_UI any
+CameraType = {}
+CameraType.CAMERA_ORTHO = nil
+CameraType.CAMERA_PERSPECTIVE = nil
+CameraType.CAMERA_UI = nil
+
+---@class ColorFormat
+---@field RED any
+---@field RGBA any
+ColorFormat = {}
+ColorFormat.RED = nil
+ColorFormat.RGBA = nil
+
+---@class ContainerType
+---@field HORIZONTAL any
+---@field HORIZONTAL_WRAP any
+---@field VERTICAL any
+---@field VERTICAL_WRAP any
+ContainerType = {}
+ContainerType.HORIZONTAL = nil
+ContainerType.HORIZONTAL_WRAP = nil
+ContainerType.VERTICAL = nil
+ContainerType.VERTICAL_WRAP = nil
+
+---@class CullingMode
+---@field BACK any
+---@field FRONT any
+CullingMode = {}
+CullingMode.BACK = nil
+CullingMode.FRONT = nil
+
+---@class CursorType
+---@field ARROW any
+---@field CROSSHAIR any
+---@field IBEAM any
+---@field NOT_ALLOWED any
+---@field POINTING_HAND any
+---@field RESIZE_ALL any
+---@field RESIZE_EW any
+---@field RESIZE_NESW any
+---@field RESIZE_NS any
+---@field RESIZE_NWSE any
+CursorType = {}
+CursorType.ARROW = nil
+CursorType.CROSSHAIR = nil
+CursorType.IBEAM = nil
+CursorType.NOT_ALLOWED = nil
+CursorType.POINTING_HAND = nil
+CursorType.RESIZE_ALL = nil
+CursorType.RESIZE_EW = nil
+CursorType.RESIZE_NESW = nil
+CursorType.RESIZE_NS = nil
+CursorType.RESIZE_NWSE = nil
+
+---@class EaseType
+---@field BACK_IN any
+---@field BACK_IN_OUT any
+---@field BACK_OUT any
+---@field BOUNCE_IN any
+---@field BOUNCE_IN_OUT any
+---@field BOUNCE_OUT any
+---@field CIRC_IN any
+---@field CIRC_IN_OUT any
+---@field CIRC_OUT any
+---@field CUBIC_IN any
+---@field CUBIC_IN_OUT any
+---@field CUBIC_OUT any
+---@field CUSTOM any
+---@field ELASTIC_IN any
+---@field ELASTIC_IN_OUT any
+---@field ELASTIC_OUT any
+---@field EXPO_IN any
+---@field EXPO_IN_OUT any
+---@field EXPO_OUT any
+---@field LINEAR any
+---@field QUAD_IN any
+---@field QUAD_IN_OUT any
+---@field QUAD_OUT any
+---@field QUART_IN any
+---@field QUART_IN_OUT any
+---@field QUART_OUT any
+---@field QUINT_IN any
+---@field QUINT_IN_OUT any
+---@field QUINT_OUT any
+---@field SINE_IN any
+---@field SINE_IN_OUT any
+---@field SINE_OUT any
+---@field STEP any
+EaseType = {}
+EaseType.BACK_IN = nil
+EaseType.BACK_IN_OUT = nil
+EaseType.BACK_OUT = nil
+EaseType.BOUNCE_IN = nil
+EaseType.BOUNCE_IN_OUT = nil
+EaseType.BOUNCE_OUT = nil
+EaseType.CIRC_IN = nil
+EaseType.CIRC_IN_OUT = nil
+EaseType.CIRC_OUT = nil
+EaseType.CUBIC_IN = nil
+EaseType.CUBIC_IN_OUT = nil
+EaseType.CUBIC_OUT = nil
+EaseType.CUSTOM = nil
+EaseType.ELASTIC_IN = nil
+EaseType.ELASTIC_IN_OUT = nil
+EaseType.ELASTIC_OUT = nil
+EaseType.EXPO_IN = nil
+EaseType.EXPO_IN_OUT = nil
+EaseType.EXPO_OUT = nil
+EaseType.LINEAR = nil
+EaseType.QUAD_IN = nil
+EaseType.QUAD_IN_OUT = nil
+EaseType.QUAD_OUT = nil
+EaseType.QUART_IN = nil
+EaseType.QUART_IN_OUT = nil
+EaseType.QUART_OUT = nil
+EaseType.QUINT_IN = nil
+EaseType.QUINT_IN_OUT = nil
+EaseType.QUINT_OUT = nil
+EaseType.SINE_IN = nil
+EaseType.SINE_IN_OUT = nil
+EaseType.SINE_OUT = nil
+EaseType.STEP = nil
+
+---@class EntityPool
+---@field System any
+---@field User any
+EntityPool = {}
+EntityPool.System = nil
+EntityPool.User = nil
+
+---@class FileErrors
+---@field FILEDATA_OK any
+---@field FILE_NOT_FOUND any
+---@field INVALID_PARAMETER any
+---@field OUT_OF_MEMORY any
+FileErrors = {}
+FileErrors.FILEDATA_OK = nil
+FileErrors.FILE_NOT_FOUND = nil
+FileErrors.INVALID_PARAMETER = nil
+FileErrors.OUT_OF_MEMORY = nil
+
+---@class FogType
+---@field EXPONENTIAL any
+---@field EXPONENTIALSQUARED any
+---@field LINEAR any
+FogType = {}
+FogType.EXPONENTIAL = nil
+FogType.EXPONENTIALSQUARED = nil
+FogType.LINEAR = nil
+
+---@class FrustumPlane
+---@field FRUSTUM_PLANE_BOTTOM any
+---@field FRUSTUM_PLANE_FAR any
+---@field FRUSTUM_PLANE_LEFT any
+---@field FRUSTUM_PLANE_NEAR any
+---@field FRUSTUM_PLANE_RIGHT any
+---@field FRUSTUM_PLANE_TOP any
+FrustumPlane = {}
+FrustumPlane.FRUSTUM_PLANE_BOTTOM = nil
+FrustumPlane.FRUSTUM_PLANE_FAR = nil
+FrustumPlane.FRUSTUM_PLANE_LEFT = nil
+FrustumPlane.FRUSTUM_PLANE_NEAR = nil
+FrustumPlane.FRUSTUM_PLANE_RIGHT = nil
+FrustumPlane.FRUSTUM_PLANE_TOP = nil
+
+---@class GraphicBackend
+---@field D3D11 any
+---@field GLCORE any
+---@field GLES3 any
+---@field METAL any
+---@field WGPU any
+GraphicBackend = {}
+GraphicBackend.D3D11 = nil
+GraphicBackend.GLCORE = nil
+GraphicBackend.GLES3 = nil
+GraphicBackend.METAL = nil
+GraphicBackend.WGPU = nil
+
+---@class Joint2DType
+---@field DISTANCE any
+---@field MOTOR any
+---@field MOUSE any
+---@field PRISMATIC any
+---@field REVOLUTE any
+---@field WELD any
+---@field WHEEL any
+Joint2DType = {}
+Joint2DType.DISTANCE = nil
+Joint2DType.MOTOR = nil
+Joint2DType.MOUSE = nil
+Joint2DType.PRISMATIC = nil
+Joint2DType.REVOLUTE = nil
+Joint2DType.WELD = nil
+Joint2DType.WHEEL = nil
+
+---@class Joint3DType
+---@field CONE any
+---@field DISTANCE any
+---@field FIXED any
+---@field GEAR any
+---@field HINGE any
+---@field PATH any
+---@field POINT any
+---@field PRISMATIC any
+---@field PULLEY any
+---@field RACKANDPINON any
+---@field SIXDOF any
+---@field SWINGTWIST any
+Joint3DType = {}
+Joint3DType.CONE = nil
+Joint3DType.DISTANCE = nil
+Joint3DType.FIXED = nil
+Joint3DType.GEAR = nil
+Joint3DType.HINGE = nil
+Joint3DType.PATH = nil
+Joint3DType.POINT = nil
+Joint3DType.PRISMATIC = nil
+Joint3DType.PULLEY = nil
+Joint3DType.RACKANDPINON = nil
+Joint3DType.SIXDOF = nil
+Joint3DType.SWINGTWIST = nil
+
+---@class LightState
+---@field AUTO any
+---@field OFF any
+---@field ON any
+LightState = {}
+LightState.AUTO = nil
+LightState.OFF = nil
+LightState.ON = nil
+
+---@class LightType
+---@field DIRECTIONAL any
+---@field POINT any
+---@field SPOT any
+LightType = {}
+LightType.DIRECTIONAL = nil
+LightType.POINT = nil
+LightType.SPOT = nil
+
+---@class MaterialAlphaMode
+---@field ALPHA_OPAQUE any
+---@field AUTO any
+---@field BLEND any
+---@field MASK any
+MaterialAlphaMode = {}
+MaterialAlphaMode.ALPHA_OPAQUE = nil
+MaterialAlphaMode.AUTO = nil
+MaterialAlphaMode.BLEND = nil
+MaterialAlphaMode.MASK = nil
+
+---@class MouseMode
+---@field CAPTURED any
+---@field CONFINED any
+---@field HIDDEN any
+---@field NORMAL any
+MouseMode = {}
+MouseMode.CAPTURED = nil
+MouseMode.CONFINED = nil
+MouseMode.HIDDEN = nil
+MouseMode.NORMAL = nil
+
+---@class Occluder2DShape
+---@field AUTO_QUAD any
+---@field POLYGON any
+Occluder2DShape = {}
+Occluder2DShape.AUTO_QUAD = nil
+Occluder2DShape.POLYGON = nil
+
+---@class ParticleEmitterShape
+---@field Box any
+---@field Circle any
+---@field Cone any
+---@field Hemisphere any
+---@field Sphere any
+ParticleEmitterShape = {}
+ParticleEmitterShape.Box = nil
+ParticleEmitterShape.Circle = nil
+ParticleEmitterShape.Cone = nil
+ParticleEmitterShape.Hemisphere = nil
+ParticleEmitterShape.Sphere = nil
+
+---@class PivotPreset
+---@field BOTTOM_CENTER any
+---@field BOTTOM_LEFT any
+---@field BOTTOM_RIGHT any
+---@field CENTER any
+---@field LEFT_CENTER any
+---@field RIGHT_CENTER any
+---@field TOP_CENTER any
+---@field TOP_LEFT any
+---@field TOP_RIGHT any
+PivotPreset = {}
+PivotPreset.BOTTOM_CENTER = nil
+PivotPreset.BOTTOM_LEFT = nil
+PivotPreset.BOTTOM_RIGHT = nil
+PivotPreset.CENTER = nil
+PivotPreset.LEFT_CENTER = nil
+PivotPreset.RIGHT_CENTER = nil
+PivotPreset.TOP_CENTER = nil
+PivotPreset.TOP_LEFT = nil
+PivotPreset.TOP_RIGHT = nil
+
+---@class Platform
+---@field Android any
+---@field Linux any
+---@field MacOS any
+---@field Web any
+---@field Windows any
+---@field iOS any
+Platform = {}
+Platform.Android = nil
+Platform.Linux = nil
+Platform.MacOS = nil
+Platform.Web = nil
+Platform.Windows = nil
+Platform.iOS = nil
+
+---@class PrimitiveType
+---@field LINES any
+---@field POINTS any
+---@field TRIANGLES any
+---@field TRIANGLE_STRIP any
+PrimitiveType = {}
+PrimitiveType.LINES = nil
+PrimitiveType.POINTS = nil
+PrimitiveType.TRIANGLES = nil
+PrimitiveType.TRIANGLE_STRIP = nil
+
+---@class ProgressbarType
+---@field HORIZONTAL any
+---@field VERTICAL any
+ProgressbarType = {}
+ProgressbarType.HORIZONTAL = nil
+ProgressbarType.VERTICAL = nil
+
+---@class RayFilter
+---@field BODY_2D any
+---@field BODY_3D any
+RayFilter = {}
+RayFilter.BODY_2D = nil
+RayFilter.BODY_3D = nil
+
+---@class ReflectionProbeMode
+---@field DYNAMIC any
+---@field STATIC any
+ReflectionProbeMode = {}
+ReflectionProbeMode.DYNAMIC = nil
+ReflectionProbeMode.STATIC = nil
+
+---@class ReflectionProbeUpdateMode
+---@field INTERVAL any
+---@field MANUAL any
+---@field ON_LOAD any
+---@field ON_MOVE any
+ReflectionProbeUpdateMode = {}
+ReflectionProbeUpdateMode.INTERVAL = nil
+ReflectionProbeUpdateMode.MANUAL = nil
+ReflectionProbeUpdateMode.ON_LOAD = nil
+ReflectionProbeUpdateMode.ON_MOVE = nil
+
+---@class ResourceLoadState
+---@field Failed any
+---@field Finished any
+---@field Loading any
+---@field NotStarted any
+ResourceLoadState = {}
+ResourceLoadState.Failed = nil
+ResourceLoadState.Finished = nil
+ResourceLoadState.Loading = nil
+ResourceLoadState.NotStarted = nil
+
+---@class ResourceType
+---@field Model any
+---@field Shader any
+---@field Sound any
+---@field Texture any
+ResourceType = {}
+ResourceType.Model = nil
+ResourceType.Shader = nil
+ResourceType.Sound = nil
+ResourceType.Texture = nil
+
+---@class RotationOrder
+---@field XYZ any
+---@field XZY any
+---@field YXZ any
+---@field YZX any
+---@field ZXY any
+---@field ZYX any
+RotationOrder = {}
+RotationOrder.XYZ = nil
+RotationOrder.XZY = nil
+RotationOrder.YXZ = nil
+RotationOrder.YZX = nil
+RotationOrder.ZXY = nil
+RotationOrder.ZYX = nil
+
+---@class Scaling
+---@field CROP any
+---@field FITHEIGHT any
+---@field FITWIDTH any
+---@field LETTERBOX any
+---@field NATIVE any
+---@field STRETCH any
+Scaling = {}
+Scaling.CROP = nil
+Scaling.FITHEIGHT = nil
+Scaling.FITWIDTH = nil
+Scaling.LETTERBOX = nil
+Scaling.NATIVE = nil
+Scaling.STRETCH = nil
+
+---@class ScrollbarType
+---@field HORIZONTAL any
+---@field VERTICAL any
+ScrollbarType = {}
+ScrollbarType.HORIZONTAL = nil
+ScrollbarType.VERTICAL = nil
+
+---@class ShadowQuality
+---@field HIGH any
+---@field LOW any
+---@field MEDIUM any
+---@field NONE any
+ShadowQuality = {}
+ShadowQuality.HIGH = nil
+ShadowQuality.LOW = nil
+ShadowQuality.MEDIUM = nil
+ShadowQuality.NONE = nil
+
+---@class Shape2DType
+---@field CAPSULE any
+---@field CHAIN any
+---@field CIRCLE any
+---@field POLYGON any
+---@field SEGMENT any
+Shape2DType = {}
+Shape2DType.CAPSULE = nil
+Shape2DType.CHAIN = nil
+Shape2DType.CIRCLE = nil
+Shape2DType.POLYGON = nil
+Shape2DType.SEGMENT = nil
+
+---@class Shape3DType
+---@field BOX any
+---@field CAPSULE any
+---@field CONVEX_HULL any
+---@field CYLINDER any
+---@field HEIGHTFIELD any
+---@field MESH any
+---@field SPHERE any
+---@field TAPERED_CAPSULE any
+Shape3DType = {}
+Shape3DType.BOX = nil
+Shape3DType.CAPSULE = nil
+Shape3DType.CONVEX_HULL = nil
+Shape3DType.CYLINDER = nil
+Shape3DType.HEIGHTFIELD = nil
+Shape3DType.MESH = nil
+Shape3DType.SPHERE = nil
+Shape3DType.TAPERED_CAPSULE = nil
+
+---@class SoundAttenuation
+---@field EXPONENTIAL_DISTANCE any
+---@field INVERSE_DISTANCE any
+---@field LINEAR_DISTANCE any
+---@field NO_ATTENUATION any
+SoundAttenuation = {}
+SoundAttenuation.EXPONENTIAL_DISTANCE = nil
+SoundAttenuation.INVERSE_DISTANCE = nil
+SoundAttenuation.LINEAR_DISTANCE = nil
+SoundAttenuation.NO_ATTENUATION = nil
+
+---@class SoundState
+---@field Paused any
+---@field Playing any
+---@field Stopped any
+SoundState = {}
+SoundState.Paused = nil
+SoundState.Playing = nil
+SoundState.Stopped = nil
+
+---@class TextureFilter
+---@field LINEAR any
+---@field LINEAR_MIPMAP_LINEAR any
+---@field LINEAR_MIPMAP_NEAREST any
+---@field NEAREST any
+---@field NEAREST_MIPMAP_LINEAR any
+---@field NEAREST_MIPMAP_NEAREST any
+TextureFilter = {}
+TextureFilter.LINEAR = nil
+TextureFilter.LINEAR_MIPMAP_LINEAR = nil
+TextureFilter.LINEAR_MIPMAP_NEAREST = nil
+TextureFilter.NEAREST = nil
+TextureFilter.NEAREST_MIPMAP_LINEAR = nil
+TextureFilter.NEAREST_MIPMAP_NEAREST = nil
+
+---@class TextureStrategy
+---@field FIT any
+---@field NONE any
+---@field RESIZE any
+TextureStrategy = {}
+TextureStrategy.FIT = nil
+TextureStrategy.NONE = nil
+TextureStrategy.RESIZE = nil
+
+---@class TextureType
+---@field TEXTURE_2D any
+---@field TEXTURE_3D any
+---@field TEXTURE_ARRAY any
+---@field TEXTURE_CUBE any
+TextureType = {}
+TextureType.TEXTURE_2D = nil
+TextureType.TEXTURE_3D = nil
+TextureType.TEXTURE_ARRAY = nil
+TextureType.TEXTURE_CUBE = nil
+
+---@class TextureWrap
+---@field CLAMP_TO_BORDER any
+---@field CLAMP_TO_EDGE any
+---@field MIRRORED_REPEAT any
+---@field REPEAT any
+TextureWrap = {}
+TextureWrap.CLAMP_TO_BORDER = nil
+TextureWrap.CLAMP_TO_EDGE = nil
+TextureWrap.MIRRORED_REPEAT = nil
+TextureWrap.REPEAT = nil
+
+---@class UIEventState
+---@field DISABLED any
+---@field ENABLED any
+---@field NOT_SET any
+UIEventState = {}
+UIEventState.DISABLED = nil
+UIEventState.ENABLED = nil
+UIEventState.NOT_SET = nil
+
+---@class WindingOrder
+---@field CCW any
+---@field CW any
+WindingOrder = {}
+WindingOrder.CCW = nil
+WindingOrder.CW = nil
+
 ---@class AABB
 ---@field BOXTYPE_FINITE any
 ---@field BOXTYPE_INFINITE any
