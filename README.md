@@ -29,6 +29,7 @@ This file can be added to a VS Code workspace so LuaLS can understand the Doriax
 - Supports engine constants.
 - Supports LuaBridge constructors.
 - Supports inherited classes.
+- Supports LuaBridge namespaces and namespace variables.
 - Converts common C++ types to LuaLS types.
 - Converts `std::vector<T>` to Lua array types where possible.
 - Includes globally registered Lua functions that are not represented as normal LuaBridge class methods.
@@ -96,6 +97,41 @@ This can then be represented in LuaLS as:
     ---@return boolean
     function Input.isKeyPressed(key) end
 
+### LuaBridge Namespaces
+
+Doriax also exposes constants and other values through LuaBridge namespaces.
+
+For example:
+
+    .beginNamespace("RayFilter")
+        .addVariable("BODY_2D", RayFilter::BODY_2D)
+        .addVariable("BODY_3D", RayFilter::BODY_3D)
+    .endNamespace()
+
+The generator detects these namespace registrations and generates corresponding LuaLS definitions:
+
+    ---@class RayFilter
+    ---@field BODY_2D any
+    ---@field BODY_3D any
+    RayFilter = {}
+    RayFilter.BODY_2D = nil
+    RayFilter.BODY_3D = nil
+
+This allows LuaLS to recognize namespace-based APIs such as:
+
+    local hit = ray:intersects(
+        scene,
+        RayFilter.BODY_3D,
+        entity
+    )
+
+The same mechanism also handles other namespaces exposed through the bindings, such as:
+
+    ReflectionProbeMode.DYNAMIC
+    ReflectionProbeMode.STATIC
+
+Namespace variables are currently represented as `any` values because their C++ types are not yet resolved by the namespace parser.
+
 ### Overloaded Methods
 
 Doriax contains C++ methods with multiple overloads that may be exposed through LuaBridge.
@@ -161,6 +197,16 @@ This keeps generation lightweight and avoids expensive repository-wide C++ parsi
 
 Only headers relevant to the LuaBridge bindings being processed are inspected.
 
+Namespace registrations use a similar directed approach:
+
+    LuaBridge namespace
+          |
+          v
+    Namespace variables
+          |
+          v
+    LuaLS namespace definition
+
 ## Repository Structure
 
     .
@@ -176,11 +222,12 @@ It:
 
 1. Reads the generated Doriax API metadata.
 2. Reads the LuaBridge binding sources.
-3. Identifies Lua-exposed classes and functions.
+3. Identifies Lua-exposed classes, namespaces, and functions.
 4. Follows bindings to the relevant C++ headers.
 5. Resolves C++ method signatures, including overloads.
-6. Converts C++ types into LuaLS types.
-7. Generates the final Lua API definition.
+6. Detects namespace variables exposed through LuaBridge.
+7. Converts C++ types into LuaLS types.
+8. Generates the final Lua API definition.
 
 ### doriax-api/doriax.lua
 
@@ -399,9 +446,11 @@ The project does not require modifications to the Doriax engine itself.
 
 Early-stage tooling.
 
-The generator currently covers a growing portion of the Doriax Lua API, including APIs exposed through the generated engine metadata and LuaBridge bindings.
+The generator currently covers a growing portion of the Doriax Lua API, including APIs exposed through the generated engine metadata, LuaBridge classes, and LuaBridge namespaces.
 
 It can resolve C++ method signatures and overloaded methods from the relevant engine headers, allowing the generated LuaLS definitions to more closely match the actual Lua-facing API.
+
+It can also detect namespace variables registered through LuaBridge, providing LuaLS definitions for namespace-based constants and enum-like APIs.
 
 Additional bindings and engine features may be added as they are discovered.
 
