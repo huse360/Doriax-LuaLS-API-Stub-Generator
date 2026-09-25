@@ -971,6 +971,51 @@ def parse_binding_classes(
 
     return classes
 
+def parse_binding_namespaces(text):
+    namespaces = {}
+
+    begin_pattern = re.compile(
+        r'\.beginNamespace\s*\(\s*'
+        r'"([^"]+)"\s*\)'
+    )
+
+    for match in begin_pattern.finditer(text):
+
+        namespace_name = match.group(1)
+        start = match.end()
+
+        end_match = re.search(
+            r'\.endNamespace\s*\(\s*\)',
+            text[start:]
+        )
+
+        if not end_match:
+            continue
+
+        block = text[
+            start:
+            start + end_match.start()
+        ]
+
+        properties = {}
+
+        variable_pattern = re.compile(
+            r'\.addVariable\s*'
+            r'\(\s*"([^"]+)"\s*,',
+            re.S
+        )
+
+        for variable_match in variable_pattern.finditer(
+            block
+        ):
+            name = variable_match.group(1)
+
+            properties[name] = "any"
+
+        if properties:
+            namespaces[namespace_name] = properties
+
+    return namespaces
 
 def parse_binding_block(
     binding_path,
@@ -1150,9 +1195,10 @@ def parse_binding_functions(
 
 def parse_bindings():
     classes = {}
+    namespaces = {}
 
     if not BINDING_DIR.exists():
-        return classes
+        return classes, namespaces
 
     for path in sorted(
         BINDING_DIR.glob("*.cpp")
@@ -1216,7 +1262,17 @@ def parse_bindings():
             if info["base"]:
                 existing["base"] = info["base"]
 
-    return classes
+        found_namespaces = parse_binding_namespaces(
+            text
+        )
+
+        for name, properties in found_namespaces.items():
+            namespaces.setdefault(
+                name,
+                {}
+            ).update(properties)
+
+    return classes, namespaces
 
 
 # ============================================================
@@ -1532,6 +1588,40 @@ def emit_class(
     return lines
 
 
+def emit_namespaces(namespaces):
+    lines = []
+
+    for namespace_name in sorted(namespaces):
+
+        lines.append(
+            f"---@class {namespace_name}"
+        )
+
+        for property_name, property_type in sorted(
+            namespaces[namespace_name].items()
+        ):
+            lines.append(
+                f"---@field "
+                f"{property_name} "
+                f"{property_type}"
+            )
+
+        lines.append(
+            f"{namespace_name} = {{}}"
+        )
+
+        for property_name in sorted(
+            namespaces[namespace_name]
+        ):
+            lines.append(
+                f"{namespace_name}."
+                f"{property_name} = nil"
+            )
+
+        lines.append("")
+
+    return lines
+
 def emit_globals():
     lines = []
 
@@ -1694,7 +1784,7 @@ def main():
         "Reading Lua bindings..."
     )
 
-    classes = parse_bindings()
+    classes, namespaces = parse_bindings()
 
     print(
         "Merging generated API..."
@@ -1735,6 +1825,10 @@ def main():
 
     output.extend(
         emit_globals()
+    )
+    
+    output.extend(
+        emit_namespaces(namespaces)
     )
 
     for class_name in sorted(classes):
