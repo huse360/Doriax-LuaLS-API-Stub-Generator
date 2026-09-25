@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Hussein Nazarala
+
 #!/usr/bin/env python3
 
 from pathlib import Path
