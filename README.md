@@ -20,6 +20,9 @@ This file can be added to a VS Code workspace so LuaLS can understand the Doriax
 - Reads Doriax's generated API metadata from `build/generated/engine_api_suggestions.h`.
 - Inspects Doriax LuaBridge bindings under `engine/core/script/binding/`.
 - Resolves exposed C++ methods from the headers referenced by the binding files.
+- Resolves C++ parameter names and types from the corresponding engine headers.
+- Resolves C++ return types for Lua-exposed methods.
+- Supports overloaded C++ methods and generates separate LuaLS signatures for each overload.
 - Supports instance methods.
 - Supports static methods.
 - Supports static properties.
@@ -93,6 +96,47 @@ This can then be represented in LuaLS as:
     ---@return boolean
     function Input.isKeyPressed(key) end
 
+### Overloaded Methods
+
+Doriax contains C++ methods with multiple overloads that may be exposed through LuaBridge.
+
+For example, a C++ class may provide:
+
+    bool contains(const Vector3& v) const;
+    bool contains(const AABB& other) const;
+
+The generator resolves the corresponding C++ declarations and generates separate LuaLS signatures:
+
+    ---@param v Vector3
+    ---@return boolean
+    function AABB:contains(v) end
+
+    ---@param other AABB
+    ---@return boolean
+    function AABB:contains(other) end
+
+This allows LuaLS to provide accurate parameter information and type checking for overloaded Doriax APIs.
+
+The generator uses the C++ declarations to recover the actual parameter names and types rather than relying only on the LuaBridge binding expression.
+
+For example, an overloaded static method such as:
+
+    static Quaternion lookRotation(const Vector3& forward);
+    static Quaternion lookRotation(
+        const Vector3& forward,
+        const Vector3& up);
+
+is generated as:
+
+    ---@param forward Vector3
+    ---@return Quaternion
+    function Quaternion.lookRotation(forward) end
+
+    ---@param forward Vector3
+    ---@param up Vector3
+    ---@return Quaternion
+    function Quaternion.lookRotation(forward, up) end
+
 ## Directed C++ Lookup
 
 The generator deliberately does not build a global index of the entire Doriax C++ codebase.
@@ -133,9 +177,10 @@ It:
 1. Reads the generated Doriax API metadata.
 2. Reads the LuaBridge binding sources.
 3. Identifies Lua-exposed classes and functions.
-4. Resolves relevant C++ declarations.
-5. Converts C++ types into LuaLS types.
-6. Generates the final Lua API definition.
+4. Follows bindings to the relevant C++ headers.
+5. Resolves C++ method signatures, including overloads.
+6. Converts C++ types into LuaLS types.
+7. Generates the final Lua API definition.
 
 ### doriax-api/doriax.lua
 
@@ -355,6 +400,8 @@ The project does not require modifications to the Doriax engine itself.
 Early-stage tooling.
 
 The generator currently covers a growing portion of the Doriax Lua API, including APIs exposed through the generated engine metadata and LuaBridge bindings.
+
+It can resolve C++ method signatures and overloaded methods from the relevant engine headers, allowing the generated LuaLS definitions to more closely match the actual Lua-facing API.
 
 Additional bindings and engine features may be added as they are discovered.
 
