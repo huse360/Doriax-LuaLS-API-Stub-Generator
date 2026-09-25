@@ -33,92 +33,148 @@ AABB = {}
 
 function AABB:AABB() end
 
----@param L lua_State
-function AABB:contains(L) end
+---@param v Vector3
+---@return boolean
+function AABB:contains(v) end
 
----@param L lua_State
-function AABB:distance(L) end
+---@param other AABB
+---@return boolean
+function AABB:contains(other) end
 
----@param L lua_State
-function AABB:getCenter(L) end
+---@param v Vector3
+---@return number
+function AABB:distance(v) end
 
----@param L lua_State
-function AABB:getCorner(L) end
+---@param arg1 any
+---@return Vector3
+function AABB:getCenter(arg1) end
 
----@param L lua_State
-function AABB:getCorners(L) end
+---@param cornerToGet CornerEnum
+---@return Vector3
+function AABB:getCorner(cornerToGet) end
 
----@param L lua_State
-function AABB:getHalfSize(L) end
+---@param arg1 any
+---@return Vector3
+function AABB:getCorners(arg1) end
 
----@param L lua_State
-function AABB:getSize(L) end
+---@param arg1 any
+---@return Vector3
+function AABB:getHalfSize(arg1) end
 
----@param L lua_State
-function AABB:intersection(L) end
+---@param arg1 any
+---@return Vector3
+function AABB:getSize(arg1) end
 
----@param L lua_State
-function AABB:intersects(L) end
+---@param b2 AABB
+---@return AABB
+function AABB:intersection(b2) end
 
----@param L lua_State
-function AABB:isFinite(L) end
+---@param b2 AABB
+---@return boolean
+function AABB:intersects(b2) end
 
----@param L lua_State
-function AABB:isInfinite(L) end
+---@param obb OBB
+---@return boolean
+function AABB:intersects(obb) end
 
----@param L lua_State
-function AABB:isNull(L) end
+---@param p Plane
+---@return boolean
+function AABB:intersects(p) end
 
----@param L lua_State
-function AABB:merge(L) end
+---@param sp Sphere
+---@return boolean
+function AABB:intersects(sp) end
 
----@param L lua_State
-function AABB:scale(L) end
+---@param v Vector3
+---@return boolean
+function AABB:intersects(v) end
 
----@param L lua_State
-function AABB:setExtents(L) end
+---@param arg1 any
+---@return boolean
+function AABB:isFinite(arg1) end
 
----@param L lua_State
-function AABB:setFinite(L) end
+---@param arg1 any
+---@return boolean
+function AABB:isInfinite(arg1) end
 
----@param L lua_State
-function AABB:setInfinite(L) end
+---@param arg1 any
+---@return boolean
+function AABB:isNull(arg1) end
 
----@param L lua_State
-function AABB:setMaximum(L) end
+---@param rhs AABB
+---@return AABB
+function AABB:merge(rhs) end
 
----@param L lua_State
-function AABB:setMaximumX(L) end
+---@param point Vector3
+---@return AABB
+function AABB:merge(point) end
 
----@param L lua_State
-function AABB:setMaximumY(L) end
+---@param s Vector3
+function AABB:scale(s) end
 
----@param L lua_State
-function AABB:setMaximumZ(L) end
+---@param min Vector3
+---@param max Vector3
+function AABB:setExtents(min, max) end
 
----@param L lua_State
-function AABB:setMinimum(L) end
+---@param mx number
+---@param my number
+---@param mz number
+---@param Mx number
+---@param My number
+---@param Mz number
+function AABB:setExtents(mx, my, mz, Mx, My, Mz) end
 
----@param L lua_State
-function AABB:setMinimumX(L) end
+function AABB:setFinite() end
 
----@param L lua_State
-function AABB:setMinimumY(L) end
+function AABB:setInfinite() end
 
----@param L lua_State
-function AABB:setMinimumZ(L) end
+---@param vec Vector3
+function AABB:setMaximum(vec) end
 
----@param L lua_State
-function AABB:setNull(L) end
+---@param x number
+---@param y number
+---@param z number
+function AABB:setMaximum(x, y, z) end
 
----@param L lua_State
-function AABB:squaredDistance(L) end
+---@param x number
+function AABB:setMaximumX(x) end
 
----@param L lua_State
-function AABB:transform(L) end
+---@param y number
+function AABB:setMaximumY(y) end
 
----@param L lua_State
-function AABB:volume(L) end
+---@param z number
+function AABB:setMaximumZ(z) end
+
+---@param vec Vector3
+function AABB:setMinimum(vec) end
+
+---@param x number
+---@param y number
+---@param z number
+function AABB:setMinimum(x, y, z) end
+
+---@param x number
+function AABB:setMinimumX(x) end
+
+---@param y number
+function AABB:setMinimumY(y) end
+
+---@param z number
+function AABB:setMinimumZ(z) end
+
+function AABB:setNull() end
+
+---@param v Vector3
+---@return number
+function AABB:squaredDistance(v) end
+
+---@param matrix Matrix4
+---@return AABB
+function AABB:transform(matrix) end
+
+---@param arg1 any
+---@return number
+function AABB:volume(arg1) end
 
 AABB.BOXTYPE_FINITE = nil
 AABB.BOXTYPE_INFINITE = nil
@@ -158,7 +214,11 @@ function Action:isStopped() end
 
 function Action:pause() end
 
-function Action:setTarget() end
+---@param target Object
+function Action:setTarget(target) end
+
+---@param target Entity
+function Action:setTarget(target) end
 
 function Action:start() end
 
@@ -235,11 +295,31 @@ Animation = {}
 ---@param Scene any
 function Animation:Animation(Scene) end
 
-function Animation:addActionFrame() end
+---@param startTime number
+---@param duration number
+---@param action Entity
+---@param target Entity
+function Animation:addActionFrame(startTime, duration, action, target) end
 
-function Animation:fadeIn() end
+---@param startTime number
+---@param timedaction Entity
+---@param target Entity
+function Animation:addActionFrame(startTime, timedaction, target) end
 
-function Animation:fadeOut() end
+---@param startTime number
+---@param duration number
+---@param action Entity
+function Animation:addActionFrame(startTime, duration, action) end
+
+---@param startTime number
+---@param timedaction Entity
+function Animation:addActionFrame(startTime, timedaction) end
+
+---@param duration number
+function Animation:fadeIn(duration) end
+
+---@param duration number
+function Animation:fadeOut(duration) end
 
 ---@param index number
 ---@return ActionFrame
@@ -319,98 +399,243 @@ function Body2D:applyMassFromShapes() end
 ---@param wake boolean
 function Body2D:applyTorque(torque, wake) end
 
-function Body2D:createBoxShape() end
+---@param width number
+---@param height number
+---@return number
+function Body2D:createBoxShape(width, height) end
 
-function Body2D:createCapsuleShape() end
+---@param center1 Vector2
+---@param center2 Vector2
+---@param radius number
+---@return number
+function Body2D:createCapsuleShape(center1, center2, radius) end
 
-function Body2D:createCenteredBoxShape() end
+---@param width number
+---@param height number
+---@return number
+function Body2D:createCenteredBoxShape(width, height) end
 
-function Body2D:createChainShape() end
+---@param width number
+---@param height number
+---@param center Vector2
+---@param angle number
+---@return number
+function Body2D:createCenteredBoxShape(width, height, center, angle) end
 
-function Body2D:createCircleShape() end
+---@param vertices Vector2[]
+---@param loop boolean
+---@return number
+function Body2D:createChainShape(vertices, loop) end
 
-function Body2D:createPolygonShape() end
+---@param center Vector2
+---@param radius number
+---@return number
+function Body2D:createCircleShape(center, radius) end
 
-function Body2D:createRoundedBoxShape() end
+---@param vertices Vector2[]
+---@return number
+function Body2D:createPolygonShape(vertices) end
 
-function Body2D:createSegmentShape() end
+---@param width number
+---@param height number
+---@param radius number
+---@return number
+function Body2D:createRoundedBoxShape(width, height, radius) end
 
+---@param point1 Vector2
+---@param point2 Vector2
+---@return number
+function Body2D:createSegmentShape(point1, point2) end
+
+---@return Object
 function Body2D:getAttachedObject() end
 
+---@return Contact2D[]
 function Body2D:getBodyContacts() end
 
 ---@return number
 function Body2D:getCategoryBitsFilter() end
 
+---@param shapeIndex number
+---@return number
+function Body2D:getCategoryBitsFilter(shapeIndex) end
+
 ---@return number
 function Body2D:getGroupIndexFilter() end
+
+---@param shapeIndex number
+---@return number
+function Body2D:getGroupIndexFilter(shapeIndex) end
 
 ---@return number
 function Body2D:getMaskBitsFilter() end
 
+---@param shapeIndex number
+---@return number
+function Body2D:getMaskBitsFilter(shapeIndex) end
+
 ---@return number
 function Body2D:getMass() end
 
+---@return number
 function Body2D:getNumShapes() end
 
 ---@return number
 function Body2D:getRotationalInertia() end
 
-function Body2D:getShapeContacts() end
+---@param index number
+---@return Contact2D[]
+function Body2D:getShapeContacts(index) end
 
 ---@return number
 function Body2D:getShapeDensity() end
 
+---@param index number
+---@return number
+function Body2D:getShapeDensity(index) end
+
 ---@return number
 function Body2D:getShapeFriction() end
+
+---@param index number
+---@return number
+function Body2D:getShapeFriction(index) end
 
 ---@return number
 function Body2D:getShapeRestitution() end
 
-function Body2D:getShapeType() end
+---@param index number
+---@return number
+function Body2D:getShapeRestitution(index) end
+
+---@param index number
+---@return Shape2DType
+function Body2D:getShapeType(index) end
 
 ---@return boolean
 function Body2D:isShapeContactEvents() end
 
+---@param index number
+---@return boolean
+function Body2D:isShapeContactEvents(index) end
+
 ---@return boolean
 function Body2D:isShapeEnableHitEvents() end
+
+---@param index number
+---@return boolean
+function Body2D:isShapeEnableHitEvents(index) end
 
 ---@return boolean
 function Body2D:isShapePreSolveEvents() end
 
+---@param index number
+---@return boolean
+function Body2D:isShapePreSolveEvents(index) end
+
 ---@return boolean
 function Body2D:isShapeSensor() end
 
+---@param index number
+---@return boolean
+function Body2D:isShapeSensor(index) end
+
 ---@return boolean
 function Body2D:isShapeSensorEvents() end
+
+---@param index number
+---@return boolean
+function Body2D:isShapeSensorEvents(index) end
 
 function Body2D:load() end
 
 function Body2D:removeAllShapes() end
 
-function Body2D:setBitsFilter() end
+---@param categoryBits number
+---@param maskBits number
+function Body2D:setBitsFilter(categoryBits, maskBits) end
 
-function Body2D:setCategoryBitsFilter() end
+---@param shapeIndex number
+---@param categoryBits number
+---@param maskBits number
+function Body2D:setBitsFilter(shapeIndex, categoryBits, maskBits) end
 
-function Body2D:setGroupIndexFilter() end
+---@param categoryBits number
+function Body2D:setCategoryBitsFilter(categoryBits) end
 
-function Body2D:setMaskBitsFilter() end
+---@param shapeIndex number
+---@param categoryBits number
+function Body2D:setCategoryBitsFilter(shapeIndex, categoryBits) end
 
-function Body2D:setShapeContactEvents() end
+---@param groupIndex number
+function Body2D:setGroupIndexFilter(groupIndex) end
 
-function Body2D:setShapeDensity() end
+---@param shapeIndex number
+---@param groupIndex number
+function Body2D:setGroupIndexFilter(shapeIndex, groupIndex) end
 
-function Body2D:setShapeEnableHitEvents() end
+---@param maskBits number
+function Body2D:setMaskBitsFilter(maskBits) end
 
-function Body2D:setShapeFriction() end
+---@param shapeIndex number
+---@param maskBits number
+function Body2D:setMaskBitsFilter(shapeIndex, maskBits) end
 
-function Body2D:setShapePreSolveEvents() end
+---@param contactEvents boolean
+function Body2D:setShapeContactEvents(contactEvents) end
 
-function Body2D:setShapeRestitution() end
+---@param index number
+---@param contactEvents boolean
+function Body2D:setShapeContactEvents(index, contactEvents) end
 
-function Body2D:setShapeSensor() end
+---@param density number
+function Body2D:setShapeDensity(density) end
 
-function Body2D:setShapeSensorEvents() end
+---@param index number
+---@param density number
+function Body2D:setShapeDensity(index, density) end
+
+---@param hitEvents boolean
+function Body2D:setShapeEnableHitEvents(hitEvents) end
+
+---@param index number
+---@param hitEvents boolean
+function Body2D:setShapeEnableHitEvents(index, hitEvents) end
+
+---@param friction number
+function Body2D:setShapeFriction(friction) end
+
+---@param index number
+---@param friction number
+function Body2D:setShapeFriction(index, friction) end
+
+---@param preSolveEvent boolean
+function Body2D:setShapePreSolveEvents(preSolveEvent) end
+
+---@param index number
+---@param preSolveEvent boolean
+function Body2D:setShapePreSolveEvents(index, preSolveEvent) end
+
+---@param restitution number
+function Body2D:setShapeRestitution(restitution) end
+
+---@param index number
+---@param restitution number
+function Body2D:setShapeRestitution(index, restitution) end
+
+---@param sensor boolean
+function Body2D:setShapeSensor(sensor) end
+
+---@param index number
+---@param sensor boolean
+function Body2D:setShapeSensor(index, sensor) end
+
+---@param sensorEvents boolean
+function Body2D:setShapeSensorEvents(sensorEvents) end
+
+---@param index number
+---@param sensorEvents boolean
+function Body2D:setShapeSensorEvents(index, sensorEvents) end
 
 
 ---@class Body3D
@@ -437,74 +662,196 @@ function Body3D:applyAngularImpulse(angularImpulse) end
 ---@return boolean
 function Body3D:applyBuoyancyImpulse(surfacePosition, surfaceNormal, buoyancy, linearDrag, angularDrag, fluidVelocity, gravity, deltaTime) end
 
-function Body3D:applyForce() end
+---@param force Vector3
+function Body3D:applyForce(force) end
 
-function Body3D:applyImpulse() end
+---@param force Vector3
+---@param point Vector3
+function Body3D:applyForce(force, point) end
 
-function Body3D:applyTorque() end
+---@param impulse Vector3
+function Body3D:applyImpulse(impulse) end
 
+---@param impulse Vector3
+---@param point Vector3
+function Body3D:applyImpulse(impulse, point) end
+
+---@param torque Vector3
+function Body3D:applyTorque(torque) end
+
+---@return boolean
 function Body3D:canBeKinematicOrDynamic() end
 
-function Body3D:createBoxShape() end
+---@param width number
+---@param height number
+---@param depth number
+---@return number
+function Body3D:createBoxShape(width, height, depth) end
 
-function Body3D:createCapsuleShape() end
+---@param position Vector3
+---@param rotation Quaternion
+---@param width number
+---@param height number
+---@param depth number
+---@return number
+function Body3D:createBoxShape(position, rotation, width, height, depth) end
+
+---@param halfHeight number
+---@param radius number
+---@return number
+function Body3D:createCapsuleShape(halfHeight, radius) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param halfHeight number
+---@param radius number
+---@return number
+function Body3D:createCapsuleShape(position, rotation, halfHeight, radius) end
 
 ---@return number
 function Body3D:createConvexHullShape() end
 
-function Body3D:createCylinderShape() end
+---@param vertices Vector3[]
+---@return number
+function Body3D:createConvexHullShape(vertices) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param vertices Vector3[]
+---@return number
+function Body3D:createConvexHullShape(position, rotation, vertices) end
+
+---@param halfHeight number
+---@param radius number
+---@return number
+function Body3D:createCylinderShape(halfHeight, radius) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param halfHeight number
+---@param radius number
+---@return number
+function Body3D:createCylinderShape(position, rotation, halfHeight, radius) end
 
 ---@return number
 function Body3D:createHeightFieldShape() end
 
+---@param samplesSize number
+---@return number
+function Body3D:createHeightFieldShape(samplesSize) end
+
 ---@return number
 function Body3D:createMeshShape() end
 
-function Body3D:createSphereShape() end
+---@param vertices Vector3[]
+---@param indices number[]
+---@return number
+function Body3D:createMeshShape(vertices, indices) end
 
-function Body3D:createTaperedCapsuleShape() end
+---@param position Vector3
+---@param rotation Quaternion
+---@param vertices Vector3[]
+---@param indices number[]
+---@return number
+function Body3D:createMeshShape(position, rotation, vertices, indices) end
+
+---@param radius number
+---@return number
+function Body3D:createSphereShape(radius) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param radius number
+---@return number
+function Body3D:createSphereShape(position, rotation, radius) end
+
+---@param halfHeight number
+---@param topRadius number
+---@param bottomRadius number
+---@return number
+function Body3D:createTaperedCapsuleShape(halfHeight, topRadius, bottomRadius) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param halfHeight number
+---@param topRadius number
+---@param bottomRadius number
+---@return number
+function Body3D:createTaperedCapsuleShape(position, rotation, halfHeight, topRadius, bottomRadius) end
 
 function Body3D:deactivate() end
 
+---@return Vector3
 function Body3D:getAccumulatedForce() end
 
+---@return Vector3
 function Body3D:getAccumulatedTorque() end
 
+---@return Object
 function Body3D:getAttachedObject() end
 
 ---@return Vector3
 function Body3D:getCenterOfMassPosition() end
 
+---@return Matrix4
 function Body3D:getInverseInertia() end
 
+---@return number
 function Body3D:getNumShapes() end
 
-function Body3D:getPointVelocity() end
+---@param point Vector3
+---@return Vector3
+function Body3D:getPointVelocity(point) end
 
-function Body3D:getPointVelocityCOM() end
+---@param pointRelativeToCOM Vector3
+---@return Vector3
+function Body3D:getPointVelocityCOM(pointRelativeToCOM) end
 
 ---@return number
 function Body3D:getShapeDensity() end
 
-function Body3D:getShapeType() end
+---@param index number
+---@return number
+function Body3D:getShapeDensity(index) end
+
+---@param index number
+---@return Shape3DType
+function Body3D:getShapeType(index) end
 
 function Body3D:load() end
 
-function Body3D:setAllowedDOFs() end
+---@param translationX boolean
+---@param translationY boolean
+---@param translationZ boolean
+---@param rotationX boolean
+---@param rotationY boolean
+---@param rotationZ boolean
+function Body3D:setAllowedDOFs(translationX, translationY, translationZ, rotationX, rotationY, rotationZ) end
 
 function Body3D:setAllowedDOFs2DPlane() end
 
 function Body3D:setAllowedDOFsAll() end
 
-function Body3D:setAngularVelocityClamped() end
+---@param angularVelocity Vector3
+function Body3D:setAngularVelocityClamped(angularVelocity) end
 
-function Body3D:setBitsFilter() end
+---@param category number
+---@param mask number
+function Body3D:setBitsFilter(category, mask) end
 
-function Body3D:setLinearVelocityClamped() end
+---@param linearVelocity Vector3
+function Body3D:setLinearVelocityClamped(linearVelocity) end
 
-function Body3D:setOverrideMassAndInertia() end
+---@param solidBoxSize Vector3
+---@param solidBoxDensity number
+function Body3D:setOverrideMassAndInertia(solidBoxSize, solidBoxDensity) end
 
-function Body3D:setShapeDensity() end
+---@param density number
+function Body3D:setShapeDensity(density) end
+
+---@param index number
+---@param density number
+function Body3D:setShapeDensity(index, density) end
 
 
 ---@class Bone
@@ -522,7 +869,49 @@ BundleManager = {}
 
 function BundleManager.clearAll() end
 
-function BundleManager.createBundle() end
+---@param name string
+---@param scene Scene
+---@return Entity
+function BundleManager.createBundle(name, scene) end
+
+---@param id number
+---@param scene Scene
+---@return Entity
+function BundleManager.createBundle(id, scene) end
+
+---@param name string
+---@param scene Scene
+---@param parentName string
+---@return Entity
+function BundleManager.createBundle(name, scene, parentName) end
+
+---@param id number
+---@param scene Scene
+---@param parentName string
+---@return Entity
+function BundleManager.createBundle(id, scene, parentName) end
+
+---@param name string
+---@param parent EntityHandle
+---@return Entity
+function BundleManager.createBundle(name, parent) end
+
+---@param id number
+---@param parent EntityHandle
+---@return Entity
+function BundleManager.createBundle(id, parent) end
+
+---@param name string
+---@param scene Scene
+---@param parent Entity
+---@return Entity
+function BundleManager.createBundle(name, scene, parent) end
+
+---@param id number
+---@param scene Scene
+---@param parent Entity
+---@return Entity
+function BundleManager.createBundle(id, scene, parent) end
 
 ---@param scene Scene
 ---@param rootEntity Entity
@@ -551,25 +940,85 @@ function Button:Button(Scene) end
 
 function Button:getButtonComponent() end
 
+---@return Text
 function Button:getLabelObject() end
 
-function Button:setColorDisabled() end
+---@param color Vector4
+function Button:setColorDisabled(color) end
 
-function Button:setColorHovered() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Button:setColorDisabled(red, green, blue, alpha) end
 
-function Button:setColorNormal() end
+---@param red number
+---@param green number
+---@param blue number
+function Button:setColorDisabled(red, green, blue) end
 
-function Button:setColorPressed() end
+---@param color Vector4
+function Button:setColorHovered(color) end
 
-function Button:setLabelColor() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Button:setColorHovered(red, green, blue, alpha) end
 
-function Button:setTextureDisabled() end
+---@param red number
+---@param green number
+---@param blue number
+function Button:setColorHovered(red, green, blue) end
 
-function Button:setTextureHovered() end
+---@param color Vector4
+function Button:setColorNormal(color) end
 
-function Button:setTextureNormal() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Button:setColorNormal(red, green, blue, alpha) end
 
-function Button:setTexturePressed() end
+---@param red number
+---@param green number
+---@param blue number
+function Button:setColorNormal(red, green, blue) end
+
+---@param color Vector4
+function Button:setColorPressed(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Button:setColorPressed(red, green, blue, alpha) end
+
+---@param red number
+---@param green number
+---@param blue number
+function Button:setColorPressed(red, green, blue) end
+
+---@param color Vector4
+function Button:setLabelColor(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Button:setLabelColor(red, green, blue, alpha) end
+
+---@param path string
+function Button:setTextureDisabled(path) end
+
+---@param path string
+function Button:setTextureHovered(path) end
+
+---@param path string
+function Button:setTextureNormal(path) end
+
+---@param path string
+function Button:setTexturePressed(path) end
 
 
 ---@class ButtonComponent
@@ -667,11 +1116,21 @@ function Camera:setPerspective(yfov, aspect, nearValue, farValue) end
 ---@param target Vector3
 function Camera:setTarget(target) end
 
+---@param x number
+---@param y number
+---@param z number
+function Camera:setTarget(x, y, z) end
+
 ---@param type CameraType
 function Camera:setType(type) end
 
 ---@param up Vector3
 function Camera:setUp(up) end
+
+---@param x number
+---@param y number
+---@param z number
+function Camera:setUp(x, y, z) end
 
 ---@param distance number
 function Camera:slide(distance) end
@@ -713,9 +1172,47 @@ function CollideShapeResult3D:getShapeIndex2() end
 ---@class Color
 Color = {}
 
-function Color.linearTosRGB() end
+---@param r number
+---@param g number
+---@param b number
+---@return any
+function Color.linearTosRGB(r, g, b) end
 
-function Color.sRGBToLinear() end
+---@param color Vector3
+---@return Vector3
+function Color.linearTosRGB(color) end
+
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+---@return Vector4
+function Color.linearTosRGB(r, g, b, a) end
+
+---@param color Vector4
+---@return Vector4
+function Color.linearTosRGB(color) end
+
+---@param r number
+---@param g number
+---@param b number
+---@return Vector3
+function Color.sRGBToLinear(r, g, b) end
+
+---@param srgbIn Vector3
+---@return Vector3
+function Color.sRGBToLinear(srgbIn) end
+
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+---@return Vector4
+function Color.sRGBToLinear(r, g, b, a) end
+
+---@param srgbIn Vector4
+---@return Vector4
+function Color.sRGBToLinear(srgbIn) end
 
 
 ---@class ColorAction
@@ -725,7 +1222,17 @@ ColorAction = {}
 ---@param Scene any
 function ColorAction:ColorAction(Scene) end
 
-function ColorAction:setAction() end
+---@param startColor Vector3
+---@param endColor Vector3
+---@param duration number
+---@param loop boolean
+function ColorAction:setAction(startColor, endColor, duration, loop) end
+
+---@param startColor Vector4
+---@param endColor Vector4
+---@param duration number
+---@param loop boolean
+function ColorAction:setAction(startColor, endColor, duration, loop) end
 
 
 ---@class Contact2D
@@ -793,7 +1300,12 @@ function Container:isBoxExpand(id) end
 
 function Container:resize() end
 
-function Container:setBoxExpand() end
+---@param expand boolean
+function Container:setBoxExpand(expand) end
+
+---@param id number
+---@param expand boolean
+function Container:setBoxExpand(id, expand) end
 
 
 ---@class Data
@@ -808,6 +1320,10 @@ function Data:Data() end
 ---@param aTakeOwnership boolean
 ---@return number
 function Data:open(arg1, aDataLength, aCopy, aTakeOwnership) end
+
+---@param arg1 any
+---@return number
+function Data:open(arg1) end
 
 
 ---@class DoriaxScript
@@ -876,55 +1392,80 @@ DoriaxScript.scene = nil
 ---@field viewRect any
 Engine = {}
 
-function Engine.addSceneLayer() end
+---@param scene Scene
+function Engine.addSceneLayer(scene) end
 
-function Engine.clearAllSubscriptions() end
+---@param includeLifecycle boolean
+function Engine.clearAllSubscriptions(includeLifecycle) end
 
-function Engine.clearComponentSubscriptions() end
+---@param scene Scene
+function Engine.clearComponentSubscriptions(scene) end
 
 function Engine.commitThreadQueue() end
 
 function Engine.endAsyncThread() end
 
-function Engine.executeSceneOnce() end
+---@param scene Scene
+function Engine.executeSceneOnce(scene) end
 
+---@return Scene
 function Engine.getLastScene() end
 
+---@return Scene
 function Engine.getMainScene() end
 
+---@return number
 function Engine.getQueuedResourceCount() end
 
+---@return Scene
 function Engine.getScene() end
 
+---@return boolean
 function Engine.hasScenesToExecuteOnce() end
 
+---@return boolean
 function Engine.isAsyncThread() end
 
-function Engine.isSceneRunning() end
+---@param scene Scene
+---@return boolean
+function Engine.isSceneRunning(scene) end
 
+---@return boolean
 function Engine.isUIEventReceived() end
 
+---@return boolean
 function Engine.isViewLoaded() end
 
-function Engine.pauseGameEvents() end
+---@param pause boolean
+function Engine.pauseGameEvents(pause) end
 
-function Engine.removeAllSceneLayers() end
+---@param removeOneTimeScenes boolean
+function Engine.removeAllSceneLayers(removeOneTimeScenes) end
 
 function Engine.removeAllScenes() end
 
-function Engine.removeScene() end
+---@param scene Scene
+function Engine.removeScene(scene) end
 
-function Engine.setCallTouchInMouseEvent() end
+---@param callTouchInMouseEvent boolean
+function Engine.setCallTouchInMouseEvent(callTouchInMouseEvent) end
 
-function Engine.setCanvasSize() end
+---@param canvasWidth number
+---@param canvasHeight number
+function Engine.setCanvasSize(canvasWidth, canvasHeight) end
 
-function Engine.setMaxResourceLoadingThreads() end
+---@param maxThreads number
+function Engine.setMaxResourceLoadingThreads(maxThreads) end
 
-function Engine.setMousePosition() end
+---@param x number
+---@param y number
+function Engine.setMousePosition(x, y) end
 
-function Engine.setScene() end
+---@param scene Scene
+function Engine.setScene(scene) end
 
-function Engine.setUpdateTimeMS() end
+---@param updateTimeMS number
+function Engine.setUpdateTimeMS(updateTimeMS) end
 
 function Engine.startAsyncThread() end
 
@@ -1088,44 +1629,58 @@ function File:open(arg1, write) end
 ---@class FileData
 FileData = {}
 
----@return string
+---@return number
 function FileData:eof() end
 
----@return string
+---@return number
 function FileData:length() end
 
----@return string
+---@return number
 function FileData:pos() end
 
----@return string
+---@return number
 function FileData:read16() end
 
----@return string
+---@return number
 function FileData:read32() end
 
----@return string
+---@return number
 function FileData:read8() end
 
 ---@return string
 function FileData:readString() end
 
+---@param stringlen number
 ---@return string
-function FileData:seek() end
+function FileData:readString(stringlen) end
+
+---@param aOffset number
+function FileData:seek(aOffset) end
 
 ---@param s string
 ---@return number
 function FileData:writeString(s) end
 
+---@param filepath string
 ---@return string
-function FileData.getBaseDir() end
+function FileData.getBaseDir(filepath) end
 
+---@param arg1 any
 ---@return string
-function FileData.getFilePathExtension() end
+function FileData.getFilePathExtension(arg1) end
 
+---@param path string
 ---@return string
-function FileData.getSystemPath() end
+function FileData.getSystemPath(path) end
 
-function FileData.newFile() end
+---@param useHandle boolean
+---@return FileData
+function FileData.newFile(useHandle) end
+
+---@param arg1 any
+---@param useHandle boolean
+---@return FileData
+function FileData.newFile(arg1, useHandle) end
 
 
 ---@class Fog
@@ -1137,6 +1692,11 @@ function Fog:Fog(Scene) end
 
 ---@param color Vector3
 function Fog:setColor(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+function Fog:setColor(red, green, blue) end
 
 ---@param start number
 ---@param end number
@@ -1184,6 +1744,7 @@ Image = {}
 ---@param Scene any
 function Image:Image(Scene) end
 
+---@return AABB
 function Image:getAABB() end
 
 ---@param name string
@@ -1192,19 +1753,61 @@ function Image:getShaderUniform(name) end
 
 function Image:getUIComponent() end
 
+---@return AABB
 function Image:getWorldAABB() end
 
 ---@param name string
 ---@return boolean
 function Image:removeShaderUniform(name) end
 
-function Image:setColor() end
+---@param color Vector4
+function Image:setColor(color) end
 
-function Image:setPatchMargin() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Image:setColor(red, green, blue, alpha) end
 
-function Image:setShaderUniform() end
+---@param red number
+---@param green number
+---@param blue number
+function Image:setColor(red, green, blue) end
 
-function Image:setTexture() end
+---@param margin number
+function Image:setPatchMargin(margin) end
+
+---@param marginLeft number
+---@param marginRight number
+---@param marginTop number
+---@param marginBottom number
+function Image:setPatchMargin(marginLeft, marginRight, marginTop, marginBottom) end
+
+---@param name string
+---@param value Vector4
+function Image:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector3
+function Image:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector2
+function Image:setShaderUniform(name, value) end
+
+---@param name string
+---@param value number
+function Image:setShaderUniform(name, value) end
+
+---@param path string
+function Image:setTexture(path) end
+
+---@param id string
+---@param data TextureData
+function Image:setTexture(id, data) end
+
+---@param framebuffer Framebuffer
+function Image:setTexture(framebuffer) end
 
 
 ---@class Input
@@ -1620,7 +2223,16 @@ function Joint2D:Joint2D(Scene) end
 ---@return Joint2DType
 function Joint2D:getType() end
 
-function Joint2D:setDistanceJoint() end
+---@param bodyA Entity
+---@param bodyB Entity
+function Joint2D:setDistanceJoint(bodyA, bodyB) end
+
+---@param bodyA Entity
+---@param bodyB Entity
+---@param worldAnchorOnBodyA Vector2
+---@param worldAnchorOnBodyB Vector2
+---@param rope boolean
+function Joint2D:setDistanceJoint(bodyA, bodyB, worldAnchorOnBodyA, worldAnchorOnBodyB, rope) end
 
 ---@param bodyA Entity
 ---@param bodyB Entity
@@ -1669,9 +2281,19 @@ function Joint3D:getType() end
 ---@param twistAxis Vector3
 function Joint3D:setConeJoint(bodyA, bodyB, worldAnchor, twistAxis) end
 
-function Joint3D:setDistanceJoint() end
+---@param bodyA Entity
+---@param bodyB Entity
+function Joint3D:setDistanceJoint(bodyA, bodyB) end
 
-function Joint3D:setFixedJoint() end
+---@param bodyA Entity
+---@param bodyB Entity
+---@param worldAnchorOnBodyA Vector3
+---@param worldAnchorOnBodyB Vector3
+function Joint3D:setDistanceJoint(bodyA, bodyB, worldAnchorOnBodyA, worldAnchorOnBodyB) end
+
+---@param bodyA Entity
+---@param bodyB Entity
+function Joint3D:setFixedJoint(bodyA, bodyB) end
 
 ---@param bodyA Entity
 ---@param bodyB Entity
@@ -1762,22 +2384,40 @@ function Light:setCameraFar(farValue) end
 ---@param nearValue number
 function Light:setCameraNear(nearValue) end
 
-function Light:setColor() end
+---@param color Vector3
+function Light:setColor(color) end
 
-function Light:setConeAngle() end
+---@param r number
+---@param g number
+---@param b number
+function Light:setColor(r, g, b) end
 
-function Light:setDirection() end
+---@param inner number
+---@param outer number
+function Light:setConeAngle(inner, outer) end
 
-function Light:setInnerConeAngle() end
+---@param direction Vector3
+function Light:setDirection(direction) end
 
-function Light:setIntensity() end
+---@param x number
+---@param y number
+---@param z number
+function Light:setDirection(x, y, z) end
+
+---@param inner number
+function Light:setInnerConeAngle(inner) end
+
+---@param intensity number
+function Light:setIntensity(intensity) end
 
 ---@param numCascades number
 function Light:setNumCascades(numCascades) end
 
-function Light:setOuterConeAngle() end
+---@param outer number
+function Light:setOuterConeAngle(outer) end
 
-function Light:setRange() end
+---@param range number
+function Light:setRange(range) end
 
 ---@param nearValue number
 ---@param farValue number
@@ -1786,9 +2426,15 @@ function Light:setShadowCameraNearFar(nearValue, farValue) end
 ---@param shadows boolean
 function Light:setShadows(shadows) end
 
-function Light:setSpotMask() end
+---@param texture string
+function Light:setSpotMask(texture) end
 
-function Light:setType() end
+---@param id string
+---@param data TextureData
+function Light:setSpotMask(id, data) end
+
+---@param type LightType
+function Light:setType(type) end
 
 
 ---@class Light2D
@@ -1800,6 +2446,11 @@ function Light2D:Light2D(Scene) end
 
 ---@param color Vector3
 function Light2D:setColor(color) end
+
+---@param r number
+---@param g number
+---@param b number
+function Light2D:setColor(r, g, b) end
 
 ---@param falloff number
 function Light2D:setFalloff(falloff) end
@@ -1828,27 +2479,105 @@ Lines = {}
 ---@param Scene any
 function Lines:Lines(Scene) end
 
-function Lines:addLine() end
+---@param line LineData
+function Lines:addLine(line) end
+
+---@param pointA Vector3
+---@param pointB Vector3
+function Lines:addLine(pointA, pointB) end
+
+---@param pointA Vector3
+---@param pointB Vector3
+---@param color Vector3
+function Lines:addLine(pointA, pointB, color) end
+
+---@param pointA Vector3
+---@param pointB Vector3
+---@param color Vector4
+function Lines:addLine(pointA, pointB, color) end
+
+---@param pointA Vector3
+---@param pointB Vector3
+---@param colorA Vector4
+---@param colorB Vector4
+function Lines:addLine(pointA, pointB, colorA, colorB) end
 
 function Lines:clearLines() end
 
-function Lines:getLine() end
+---@param index number
+---@return LineData
+function Lines:getLine(index) end
 
+---@return number
 function Lines:getNumLines() end
 
 ---@param name string
 ---@return Vector4
 function Lines:getShaderUniform(name) end
 
-function Lines:removeLine() end
+---@param index number
+function Lines:removeLine(index) end
 
 ---@param name string
 ---@return boolean
 function Lines:removeShaderUniform(name) end
 
-function Lines:setShaderUniform() end
+---@param name string
+---@param value Vector4
+function Lines:setShaderUniform(name, value) end
 
-function Lines:updateLine() end
+---@param name string
+---@param value Vector3
+function Lines:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector2
+function Lines:setShaderUniform(name, value) end
+
+---@param name string
+---@param value number
+function Lines:setShaderUniform(name, value) end
+
+---@param index number
+---@param line LineData
+function Lines:updateLine(index, line) end
+
+---@param index number
+---@param pointA Vector3
+---@param pointB Vector3
+function Lines:updateLine(index, pointA, pointB) end
+
+---@param index number
+---@param pointA Vector3
+---@param pointB Vector3
+---@param color Vector3
+function Lines:updateLine(index, pointA, pointB, color) end
+
+---@param index number
+---@param pointA Vector3
+---@param pointB Vector3
+---@param color Vector4
+function Lines:updateLine(index, pointA, pointB, color) end
+
+---@param index number
+---@param pointA Vector3
+---@param pointB Vector3
+---@param colorA Vector4
+---@param colorB Vector4
+function Lines:updateLine(index, pointA, pointB, colorA, colorB) end
+
+---@param index number
+---@param color Vector3
+function Lines:updateLine(index, color) end
+
+---@param index number
+---@param color Vector4
+function Lines:updateLine(index, color) end
+
+---@param index number
+---@param colorA Vector4
+---@param colorB Vector4
+function Lines:updateLine(index, colorA, colorB) end
 
 function Lines:updateLines() end
 
@@ -1931,44 +2660,87 @@ function Matrix3:__mul() end
 
 function Matrix3:__sub() end
 
+---@return string
 function Matrix3:__tostring() end
 
-function Matrix3:calcInverse() end
+---@param rkInverse Matrix3
+---@param fTolerance number
+---@return boolean
+function Matrix3:calcInverse(rkInverse, fTolerance) end
 
-function Matrix3:column() end
+---@param column number
+---@return Vector3
+function Matrix3:column(column) end
 
 ---@param kQ Matrix3
 ---@param kD Vector3
 ---@param kU Vector3
 function Matrix3:decomposeQDU(kQ, kD, kU) end
 
-function Matrix3:get() end
+---@param col number
+---@param row number
+---@return number
+function Matrix3:get(col, row) end
 
+---@return Matrix3
 function Matrix3:identity() end
 
-function Matrix3:inverse() end
+---@param fTolerance number
+---@return Matrix3
+function Matrix3:inverse(fTolerance) end
 
+---@return boolean
 function Matrix3:isValid() end
 
-function Matrix3:row() end
+---@param row number
+---@return Vector3
+function Matrix3:row(row) end
 
-function Matrix3:set() end
+---@param col number
+---@param row number
+---@param val number
+function Matrix3:set(col, row, val) end
 
-function Matrix3:setColumn() end
+---@param column number
+---@param vec Vector3
+function Matrix3:setColumn(column, vec) end
 
-function Matrix3:setRow() end
+---@param row number
+---@param vec Vector3
+function Matrix3:setRow(row, vec) end
 
+---@return Matrix3
 function Matrix3:transpose() end
 
-function Matrix3.rotateMatrix() end
+---@param angle number
+---@param arg2 any
+---@return Matrix3
+function Matrix3.rotateMatrix(angle, arg2) end
 
-function Matrix3.rotateXMatrix() end
+---@param azimuth number
+---@param elevation number
+---@return Matrix3
+function Matrix3.rotateMatrix(azimuth, elevation) end
 
-function Matrix3.rotateYMatrix() end
+---@param angle number
+---@return Matrix3
+function Matrix3.rotateXMatrix(angle) end
 
-function Matrix3.rotateZMatrix() end
+---@param angle number
+---@return Matrix3
+function Matrix3.rotateYMatrix(angle) end
 
-function Matrix3.scaleMatrix() end
+---@param angle number
+---@return Matrix3
+function Matrix3.rotateZMatrix(angle) end
+
+---@param sf number
+---@return Matrix3
+function Matrix3.scaleMatrix(sf) end
+
+---@param sf Vector3
+---@return Matrix3
+function Matrix3.scaleMatrix(sf) end
 
 
 ---@class Matrix4
@@ -1984,9 +2756,12 @@ function Matrix4:__mul() end
 
 function Matrix4:__sub() end
 
+---@return string
 function Matrix4:__tostring() end
 
-function Matrix4:column() end
+---@param column number
+---@return Vector4
+function Matrix4:column(column) end
 
 ---@param position Vector3
 ---@param scale Vector3
@@ -2003,28 +2778,50 @@ function Matrix4:decomposeQDU(position, scale, rotation) end
 ---@param rotation Quaternion
 function Matrix4:decomposeStandard(position, scale, rotation) end
 
+---@return number
 function Matrix4:determinant() end
 
-function Matrix4:get() end
+---@param col number
+---@param row number
+---@return number
+function Matrix4:get(col, row) end
 
+---@return Matrix4
 function Matrix4:identity() end
 
+---@return Matrix4
 function Matrix4:inverse() end
 
+---@return boolean
 function Matrix4:isValid() end
 
+---@return Matrix3
 function Matrix4:linear() end
 
-function Matrix4:row() end
+---@param row number
+---@return Vector4
+function Matrix4:row(row) end
 
-function Matrix4:set() end
+---@param col number
+---@param row number
+---@param val number
+function Matrix4:set(col, row, val) end
 
-function Matrix4:setColumn() end
+---@param column number
+---@param vec Vector4
+function Matrix4:setColumn(column, vec) end
 
-function Matrix4:setRow() end
+---@param row number
+---@param vec Vector4
+function Matrix4:setRow(row, vec) end
 
-function Matrix4:translateInPlace() end
+---@param x number
+---@param y number
+---@param z number
+---@return Matrix4
+function Matrix4:translateInPlace(x, y, z) end
 
+---@return Matrix4
 function Matrix4:transpose() end
 
 ---@param left number
@@ -2058,17 +2855,45 @@ function Matrix4.orthoMatrix(l, r, b, t, n, f) end
 ---@return Matrix4
 function Matrix4.perspectiveMatrix(yfov, aspect, near, far) end
 
-function Matrix4.rotateMatrix() end
+---@param angle number
+---@param arg2 any
+---@return Matrix4
+function Matrix4.rotateMatrix(angle, arg2) end
 
-function Matrix4.rotateXMatrix() end
+---@param azimuth number
+---@param elevation number
+---@return Matrix4
+function Matrix4.rotateMatrix(azimuth, elevation) end
 
-function Matrix4.rotateYMatrix() end
+---@param angle number
+---@return Matrix4
+function Matrix4.rotateXMatrix(angle) end
 
-function Matrix4.rotateZMatrix() end
+---@param angle number
+---@return Matrix4
+function Matrix4.rotateYMatrix(angle) end
 
-function Matrix4.scaleMatrix() end
+---@param angle number
+---@return Matrix4
+function Matrix4.rotateZMatrix(angle) end
 
-function Matrix4.translateMatrix() end
+---@param sf number
+---@return Matrix4
+function Matrix4.scaleMatrix(sf) end
+
+---@param sf Vector3
+---@return Matrix4
+function Matrix4.scaleMatrix(sf) end
+
+---@param x number
+---@param y number
+---@param z number
+---@return Matrix4
+function Matrix4.translateMatrix(x, y, z) end
+
+---@param position Vector3
+---@return Matrix4
+function Matrix4.translateMatrix(position) end
 
 
 ---@class Mesh
@@ -2078,45 +2903,98 @@ Mesh = {}
 ---@param Scene any
 function Mesh:Mesh(Scene) end
 
-function Mesh:addInstance() end
+---@param instance InstanceData
+function Mesh:addInstance(instance) end
+
+---@param position Vector3
+function Mesh:addInstance(position) end
+
+---@param x number
+---@param y number
+---@param z number
+function Mesh:addInstance(x, y, z) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param scale Vector3
+function Mesh:addInstance(position, rotation, scale) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param scale Vector3
+---@param color Vector4
+function Mesh:addInstance(position, rotation, scale, color) end
+
+---@param position Vector3
+---@param rotation Quaternion
+---@param scale Vector3
+---@param color Vector4
+---@param textureRect Rect
+function Mesh:addInstance(position, rotation, scale, color, textureRect) end
 
 function Mesh:clearInstances() end
 
 function Mesh:createInstancedMesh() end
 
+---@return AABB
 function Mesh:getAABB() end
 
-function Mesh:getInstance() end
+---@param index number
+---@return InstanceData
+function Mesh:getInstance(index) end
 
 ---@return Material
 function Mesh:getMaterial() end
 
+---@param submesh number
+---@return Material
+function Mesh:getMaterial(submesh) end
+
 ---@return number
 function Mesh:getNumInstances() end
 
+---@return number
 function Mesh:getNumSubmeshes() end
 
 ---@return PrimitiveType
 function Mesh:getPrimitiveType() end
 
-function Mesh:getShaderUniform() end
+---@param submesh number
+---@return PrimitiveType
+function Mesh:getPrimitiveType(submesh) end
 
+---@param name string
+---@return Vector4
+function Mesh:getShaderUniform(name) end
+
+---@return AABB
 function Mesh:getVerticesAABB() end
 
+---@return AABB
 function Mesh:getWorldAABB() end
 
+---@return boolean
 function Mesh:hasInstancedMesh() end
 
 ---@return boolean
 function Mesh:isCastShadowsWithTexture() end
 
+---@param submesh number
+---@return boolean
+function Mesh:isCastShadowsWithTexture(submesh) end
+
 ---@return boolean
 function Mesh:isFaceCulling() end
+
+---@param submesh number
+---@return boolean
+function Mesh:isFaceCulling(submesh) end
 
 ---@param index number
 ---@return boolean
 function Mesh:isInstanceVisible(index) end
 
+---@return boolean
 function Mesh:isMirror() end
 
 ---@param index number
@@ -2126,31 +3004,128 @@ function Mesh:removeInstancedMesh() end
 
 function Mesh:removeMirror() end
 
-function Mesh:removeShaderUniform() end
+---@param name string
+---@return boolean
+function Mesh:removeShaderUniform(name) end
 
 function Mesh:setAsMirror() end
 
-function Mesh:setCastShadowsWithTexture() end
+---@param normal Vector3
+function Mesh:setAsMirror(normal) end
 
-function Mesh:setColor() end
+---@param castShadowsWithTexture boolean
+function Mesh:setCastShadowsWithTexture(castShadowsWithTexture) end
 
-function Mesh:setFaceCulling() end
+---@param submesh number
+---@param castShadowsWithTexture boolean
+function Mesh:setCastShadowsWithTexture(submesh, castShadowsWithTexture) end
+
+---@param color Vector4
+function Mesh:setColor(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Mesh:setColor(red, green, blue, alpha) end
+
+---@param red number
+---@param green number
+---@param blue number
+function Mesh:setColor(red, green, blue) end
+
+---@param faceCulling boolean
+function Mesh:setFaceCulling(faceCulling) end
+
+---@param submesh number
+---@param faceCulling boolean
+function Mesh:setFaceCulling(submesh, faceCulling) end
 
 ---@param index number
 ---@param visible boolean
 function Mesh:setInstanceVisible(index, visible) end
 
-function Mesh:setInstancedBillboard() end
+---@param billboard boolean
+---@param cylindrical boolean
+function Mesh:setInstancedBillboard(billboard, cylindrical) end
 
-function Mesh:setMaterial() end
+---@param billboard boolean
+function Mesh:setInstancedBillboard(billboard) end
 
-function Mesh:setPrimitiveType() end
+---@param material Material
+function Mesh:setMaterial(material) end
 
-function Mesh:setShaderUniform() end
+---@param submesh number
+---@param material Material
+function Mesh:setMaterial(submesh, material) end
 
-function Mesh:setTexture() end
+---@param primitiveType PrimitiveType
+function Mesh:setPrimitiveType(primitiveType) end
 
-function Mesh:updateInstance() end
+---@param submesh number
+---@param primitiveType PrimitiveType
+function Mesh:setPrimitiveType(submesh, primitiveType) end
+
+---@param name string
+---@param value Vector4
+function Mesh:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector3
+function Mesh:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector2
+function Mesh:setShaderUniform(name, value) end
+
+---@param name string
+---@param value number
+function Mesh:setShaderUniform(name, value) end
+
+---@param path string
+function Mesh:setTexture(path) end
+
+---@param id string
+---@param data TextureData
+function Mesh:setTexture(id, data) end
+
+---@param framebuffer Framebuffer
+function Mesh:setTexture(framebuffer) end
+
+---@param index number
+---@param instance InstanceData
+function Mesh:updateInstance(index, instance) end
+
+---@param index number
+---@param position Vector3
+function Mesh:updateInstance(index, position) end
+
+---@param index number
+---@param x number
+---@param y number
+---@param z number
+function Mesh:updateInstance(index, x, y, z) end
+
+---@param index number
+---@param position Vector3
+---@param rotation Quaternion
+---@param scale Vector3
+function Mesh:updateInstance(index, position, rotation, scale) end
+
+---@param index number
+---@param position Vector3
+---@param rotation Quaternion
+---@param scale Vector3
+---@param color Vector4
+function Mesh:updateInstance(index, position, rotation, scale, color) end
+
+---@param index number
+---@param position Vector3
+---@param rotation Quaternion
+---@param scale Vector3
+---@param color Vector4
+---@param textureRect Rect
+function Mesh:updateInstance(index, position, rotation, scale, color, textureRect) end
 
 function Mesh:updateInstances() end
 
@@ -2162,9 +3137,12 @@ MeshPolygon = {}
 ---@param Scene any
 function MeshPolygon:MeshPolygon(Scene) end
 
----@param self MeshPolygon
----@return number
-function MeshPolygon:addVertex(self) end
+---@param vertex Vector3
+function MeshPolygon:addVertex(vertex) end
+
+---@param x number
+---@param y number
+function MeshPolygon:addVertex(x, y) end
 
 
 ---@class MeshSystem
@@ -2243,6 +3221,11 @@ function Mirror:Mirror(Scene) end
 ---@param normal Vector3
 function Mirror:setNormal(normal) end
 
+---@param x number
+---@param y number
+---@param z number
+function Mirror:setNormal(x, y, z) end
+
 
 ---@class Model
 ---@field _base Mesh
@@ -2251,27 +3234,68 @@ Model = {}
 ---@param Scene any
 function Model:Model(Scene) end
 
-function Model:findAnimation() end
+---@param name string
+---@return Animation
+function Model:findAnimation(name) end
 
-function Model:getAnimation() end
+---@param index number
+---@return Animation
+function Model:getAnimation(index) end
 
-function Model:getBone() end
+---@param name string
+---@return Bone
+function Model:getBone(name) end
 
-function Model:getMorphWeight() end
+---@param id number
+---@return Bone
+function Model:getBone(id) end
 
-function Model:loadGLTF() end
+---@param name string
+---@return number
+function Model:getMorphWeight(name) end
 
-function Model:loadModel() end
+---@param id number
+---@return number
+function Model:getMorphWeight(id) end
 
-function Model:loadOBJ() end
+---@param filename string
+---@return boolean
+function Model:loadGLTF(filename) end
 
-function Model:playAnimation() end
+---@param filename string
+---@return boolean
+function Model:loadModel(filename) end
+
+---@param filename string
+---@return boolean
+function Model:loadOBJ(filename) end
+
+---@param index number
+function Model:playAnimation(index) end
+
+---@param index number
+---@param fadeTime number
+function Model:playAnimation(index, fadeTime) end
+
+---@param name string
+function Model:playAnimation(name) end
+
+---@param name string
+---@param fadeTime number
+function Model:playAnimation(name, fadeTime) end
 
 function Model:resetToBindPose() end
 
-function Model:setMorphWeight() end
+---@param name string
+---@param value number
+function Model:setMorphWeight(name, value) end
 
-function Model:stopAnimations() end
+---@param id number
+---@param value number
+function Model:setMorphWeight(id, value) end
+
+---@param fadeTime number
+function Model:stopAnimations(fadeTime) end
 
 
 ---@class MorphTracks
@@ -2313,74 +3337,110 @@ OBB = {}
 
 function OBB:OBB() end
 
----@param L lua_State
-function OBB:closestPoint(L) end
+---@param point Vector3
+---@return Vector3
+function OBB:closestPoint(point) end
 
----@param L lua_State
-function OBB:contains(L) end
+---@param point Vector3
+---@return boolean
+function OBB:contains(point) end
 
----@param L lua_State
-function OBB:distance(L) end
+---@param other OBB
+---@return boolean
+function OBB:contains(other) end
 
----@param L lua_State
-function OBB:enclose(L) end
+---@param point Vector3
+---@return number
+function OBB:distance(point) end
 
----@param L lua_State
-function OBB:getAxisX(L) end
+---@param other OBB
+function OBB:enclose(other) end
 
----@param L lua_State
-function OBB:getAxisY(L) end
+---@param point Vector3
+function OBB:enclose(point) end
 
----@param L lua_State
-function OBB:getAxisZ(L) end
+---@return Vector3
+function OBB:getAxisX() end
 
----@param L lua_State
-function OBB:getCorner(L) end
+---@return Vector3
+function OBB:getAxisY() end
 
----@param L lua_State
-function OBB:getCorners(L) end
+---@return Vector3
+function OBB:getAxisZ() end
 
----@param L lua_State
-function OBB:intersects(L) end
+---@param cornerToGet CornerEnum
+---@return Vector3
+function OBB:getCorner(cornerToGet) end
 
----@param L lua_State
-function OBB:isFinite(L) end
+---@return Vector3
+function OBB:getCorners() end
 
----@param L lua_State
-function OBB:isInfinite(L) end
+---@param other OBB
+---@return boolean
+function OBB:intersects(other) end
 
----@param L lua_State
-function OBB:isNull(L) end
+---@param aabb AABB
+---@return boolean
+function OBB:intersects(aabb) end
 
----@param L lua_State
-function OBB:setAxes(L) end
+---@param sphere Sphere
+---@return boolean
+function OBB:intersects(sphere) end
 
----@param L lua_State
-function OBB:setFinite(L) end
+---@param plane Plane
+---@return boolean
+function OBB:intersects(plane) end
 
----@param L lua_State
-function OBB:setInfinite(L) end
+---@param point Vector3
+---@return boolean
+function OBB:intersects(point) end
 
----@param L lua_State
-function OBB:setNull(L) end
+---@return boolean
+function OBB:isFinite() end
 
----@param L lua_State
-function OBB:squaredDistance(L) end
+---@return boolean
+function OBB:isInfinite() end
 
----@param L lua_State
-function OBB:toAABB(L) end
+---@return boolean
+function OBB:isNull() end
 
----@param L lua_State
-function OBB:toMatrix(L) end
+---@param axisX Vector3
+---@param axisY Vector3
+---@param axisZ Vector3
+function OBB:setAxes(axisX, axisY, axisZ) end
 
----@param L lua_State
-function OBB:toString(L) end
+---@param orientation Quaternion
+function OBB:setAxes(orientation) end
 
----@param L lua_State
-function OBB:transform(L) end
+function OBB:setFinite() end
 
----@param L lua_State
-function OBB:volume(L) end
+function OBB:setInfinite() end
+
+function OBB:setNull() end
+
+---@param point Vector3
+---@return number
+function OBB:squaredDistance(point) end
+
+---@return AABB
+function OBB:toAABB() end
+
+---@return Matrix4
+function OBB:toMatrix() end
+
+---@return string
+function OBB:toString() end
+
+---@param matrix Matrix4
+function OBB:transform(matrix) end
+
+---@param translate Vector3
+---@param rotate Quaternion
+---@param scale Vector3
+function OBB:transform(translate, rotate, scale) end
+
+---@return number
+function OBB:volume() end
 
 OBB.BOXTYPE_FINITE = nil
 OBB.BOXTYPE_INFINITE = nil
@@ -2403,7 +3463,11 @@ Object = {}
 ---@param Scene any
 function Object:Object(Scene) end
 
-function Object:addChild() end
+---@param child Object
+function Object:addChild(child) end
+
+---@param child Entity
+function Object:addChild(child) end
 
 ---@return Body2D
 function Object:getBody2D() end
@@ -2436,7 +3500,11 @@ function Object:removeBody2D() end
 
 function Object:removeBody3D() end
 
-function Object:removeChild() end
+---@param child Object
+function Object:removeChild(child) end
+
+---@param child Entity
+function Object:removeChild(child) end
 
 function Object:removeParent() end
 
@@ -2445,16 +3513,42 @@ function Object:removeParent() end
 ---@param cylindrical boolean
 function Object:setBillboard(billboard, fake, cylindrical) end
 
+---@param billboard boolean
+function Object:setBillboard(billboard) end
+
 ---@param rotation Quaternion
 function Object:setBillboardRotation(rotation) end
 
-function Object:setPosition() end
+---@param xAngle number
+---@param yAngle number
+---@param zAngle number
+function Object:setBillboardRotation(xAngle, yAngle, zAngle) end
+
+---@param position Vector3
+function Object:setPosition(position) end
+
+---@param x number
+---@param y number
+---@param z number
+function Object:setPosition(x, y, z) end
+
+---@param x number
+---@param y number
+function Object:setPosition(x, y) end
 
 ---@param rotation Quaternion
 function Object:setRotation(rotation) end
 
+---@param xAngle number
+---@param yAngle number
+---@param zAngle number
+function Object:setRotation(xAngle, yAngle, zAngle) end
+
 ---@param factor number
 function Object:setScale(factor) end
+
+---@param scale Vector3
+function Object:setScale(scale) end
 
 ---@param visible boolean
 function Object:setVisibleOnly(visible) end
@@ -2471,6 +3565,10 @@ function Occluder2D:Occluder2D(Scene) end
 
 ---@param vertex Vector2
 function Occluder2D:addVertex(vertex) end
+
+---@param x number
+---@param y number
+function Occluder2D:addVertex(x, y) end
 
 function Occluder2D:clearVertices() end
 
@@ -2503,6 +3601,12 @@ function Panel:getPanelComponent() end
 ---@param color Vector4
 function Panel:setHeaderColor(color) end
 
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Panel:setHeaderColor(red, green, blue, alpha) end
+
 ---@param left number
 ---@param top number
 ---@param right number
@@ -2521,6 +3625,12 @@ function Panel:setMinSize(minWidth, minHeight) end
 
 ---@param color Vector4
 function Panel:setTitleColor(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Panel:setTitleColor(red, green, blue, alpha) end
 
 ---@param canMove boolean
 ---@param canResize boolean
@@ -2627,9 +3737,18 @@ Particles = {}
 ---@param Scene any
 function Particles:Particles(Scene) end
 
-function Particles:addBurst() end
+---@param time number
+---@param count number
+function Particles:addBurst(time, count) end
 
-function Particles:addColorGradientStop() end
+---@param time number
+---@param minCount number
+---@param maxCount number
+function Particles:addBurst(time, minCount, maxCount) end
+
+---@param time number
+---@param color Vector3
+function Particles:addColorGradientStop(time, color) end
 
 function Particles:clearBursts() end
 
@@ -2639,57 +3758,326 @@ function Particles:getParticlesomponent() end
 
 function Particles:reset() end
 
-function Particles:setAccelerationInitializer() end
+---@param acceleration Vector3
+function Particles:setAccelerationInitializer(acceleration) end
 
-function Particles:setAccelerationModifier() end
+---@param minAcceleration Vector3
+---@param maxAcceleration Vector3
+function Particles:setAccelerationInitializer(minAcceleration, maxAcceleration) end
 
-function Particles:setAlphaInitializer() end
+---@param fromTime number
+---@param toTime number
+---@param fromAcceleration Vector3
+---@param toAcceleration Vector3
+function Particles:setAccelerationModifier(fromTime, toTime, fromAcceleration, toAcceleration) end
 
-function Particles:setAlphaModifier() end
+---@param fromTime number
+---@param toTime number
+---@param fromAcceleration Vector3
+---@param toAcceleration Vector3
+---@param functionType EaseType
+function Particles:setAccelerationModifier(fromTime, toTime, fromAcceleration, toAcceleration, functionType) end
 
-function Particles:setBursts() end
+---@param fromTime number
+---@param toTime number
+---@param fromAcceleration Vector3
+---@param toAcceleration Vector3
+---@param function Ease
+function Particles:setAccelerationModifier(fromTime, toTime, fromAcceleration, toAcceleration, function) end
 
-function Particles:setCirclePositionInitializer() end
+---@param alpha number
+function Particles:setAlphaInitializer(alpha) end
 
-function Particles:setColorGradient() end
+---@param minAlpha number
+---@param maxAlpha number
+function Particles:setAlphaInitializer(minAlpha, maxAlpha) end
 
-function Particles:setColorGradientUseSRGB() end
+---@param fromTime number
+---@param toTime number
+---@param fromAlpha number
+---@param toAlpha number
+function Particles:setAlphaModifier(fromTime, toTime, fromAlpha, toAlpha) end
 
-function Particles:setColorInitializer() end
+---@param fromTime number
+---@param toTime number
+---@param fromAlpha number
+---@param toAlpha number
+---@param functionType EaseType
+function Particles:setAlphaModifier(fromTime, toTime, fromAlpha, toAlpha, functionType) end
 
-function Particles:setColorModifier() end
+---@param fromTime number
+---@param toTime number
+---@param fromAlpha number
+---@param toAlpha number
+---@param function Ease
+function Particles:setAlphaModifier(fromTime, toTime, fromAlpha, toAlpha, function) end
 
-function Particles:setConePositionInitializer() end
+---@param bursts ParticleBurst[]
+function Particles:setBursts(bursts) end
 
-function Particles:setHemispherePositionInitializer() end
+---@param radius number
+function Particles:setCirclePositionInitializer(radius) end
 
-function Particles:setLifeInitializer() end
+---@param radius number
+---@param innerRadius number
+function Particles:setCirclePositionInitializer(radius, innerRadius) end
 
-function Particles:setPositionInitializer() end
+---@param stops ParticleColorGradientStop[]
+function Particles:setColorGradient(stops) end
 
-function Particles:setPositionModifier() end
+---@param useSRGB boolean
+function Particles:setColorGradientUseSRGB(useSRGB) end
 
-function Particles:setRotationInitializer() end
+---@param color Vector3
+function Particles:setColorInitializer(color) end
 
-function Particles:setRotationModifier() end
+---@param minColor Vector3
+---@param maxColor Vector3
+function Particles:setColorInitializer(minColor, maxColor) end
 
-function Particles:setScaleInitializer() end
+---@param fromTime number
+---@param toTime number
+---@param fromColor Vector3
+---@param toColor Vector3
+function Particles:setColorModifier(fromTime, toTime, fromColor, toColor) end
 
-function Particles:setScaleModifier() end
+---@param fromTime number
+---@param toTime number
+---@param fromColor Vector3
+---@param toColor Vector3
+---@param functionType EaseType
+function Particles:setColorModifier(fromTime, toTime, fromColor, toColor, functionType) end
 
-function Particles:setSizeInitializer() end
+---@param fromTime number
+---@param toTime number
+---@param fromColor Vector3
+---@param toColor Vector3
+---@param function Ease
+function Particles:setColorModifier(fromTime, toTime, fromColor, toColor, function) end
 
-function Particles:setSizeModifier() end
+---@param angle number
+---@param height number
+function Particles:setConePositionInitializer(angle, height) end
 
-function Particles:setSpherePositionInitializer() end
+---@param radius number
+function Particles:setHemispherePositionInitializer(radius) end
 
-function Particles:setSpriteIntializer() end
+---@param radius number
+---@param innerRadius number
+function Particles:setHemispherePositionInitializer(radius, innerRadius) end
 
-function Particles:setSpriteModifier() end
+---@param life number
+function Particles:setLifeInitializer(life) end
 
-function Particles:setVelocityInitializer() end
+---@param minLife number
+---@param maxLife number
+function Particles:setLifeInitializer(minLife, maxLife) end
 
-function Particles:setVelocityModifier() end
+---@param position Vector3
+function Particles:setPositionInitializer(position) end
+
+---@param minPosition Vector3
+---@param maxPosition Vector3
+function Particles:setPositionInitializer(minPosition, maxPosition) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromPosition Vector3
+---@param toPosition Vector3
+function Particles:setPositionModifier(fromTime, toTime, fromPosition, toPosition) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromPosition Vector3
+---@param toPosition Vector3
+---@param functionType EaseType
+function Particles:setPositionModifier(fromTime, toTime, fromPosition, toPosition, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromPosition Vector3
+---@param toPosition Vector3
+---@param function Ease
+function Particles:setPositionModifier(fromTime, toTime, fromPosition, toPosition, function) end
+
+---@param rotation Quaternion
+function Particles:setRotationInitializer(rotation) end
+
+---@param rotation number
+function Particles:setRotationInitializer(rotation) end
+
+---@param minRotation Quaternion
+---@param maxRotation Quaternion
+function Particles:setRotationInitializer(minRotation, maxRotation) end
+
+---@param minRotation number
+---@param maxRotation number
+function Particles:setRotationInitializer(minRotation, maxRotation) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromRotation number
+---@param toRotation number
+function Particles:setRotationModifier(fromTime, toTime, fromRotation, toRotation) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromRotation Quaternion
+---@param toRotation Quaternion
+function Particles:setRotationModifier(fromTime, toTime, fromRotation, toRotation) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromRotation number
+---@param toRotation number
+---@param functionType EaseType
+function Particles:setRotationModifier(fromTime, toTime, fromRotation, toRotation, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromRotation Quaternion
+---@param toRotation Quaternion
+---@param functionType EaseType
+function Particles:setRotationModifier(fromTime, toTime, fromRotation, toRotation, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromRotation number
+---@param toRotation number
+---@param function Ease
+function Particles:setRotationModifier(fromTime, toTime, fromRotation, toRotation, function) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromRotation Quaternion
+---@param toRotation Quaternion
+---@param function Ease
+function Particles:setRotationModifier(fromTime, toTime, fromRotation, toRotation, function) end
+
+---@param scale number
+function Particles:setScaleInitializer(scale) end
+
+---@param scale Vector3
+function Particles:setScaleInitializer(scale) end
+
+---@param minScale number
+---@param maxScale number
+function Particles:setScaleInitializer(minScale, maxScale) end
+
+---@param minScale Vector3
+---@param maxScale Vector3
+function Particles:setScaleInitializer(minScale, maxScale) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromScale number
+---@param toScale number
+function Particles:setScaleModifier(fromTime, toTime, fromScale, toScale) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromScale Vector3
+---@param toScale Vector3
+function Particles:setScaleModifier(fromTime, toTime, fromScale, toScale) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromScale Vector3
+---@param toScale Vector3
+---@param functionType EaseType
+function Particles:setScaleModifier(fromTime, toTime, fromScale, toScale, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromScale Vector3
+---@param toScale Vector3
+---@param function Ease
+function Particles:setScaleModifier(fromTime, toTime, fromScale, toScale, function) end
+
+---@param size number
+function Particles:setSizeInitializer(size) end
+
+---@param minSize number
+---@param maxSize number
+function Particles:setSizeInitializer(minSize, maxSize) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromSize number
+---@param toSize number
+function Particles:setSizeModifier(fromTime, toTime, fromSize, toSize) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromSize number
+---@param toSize number
+---@param functionType EaseType
+function Particles:setSizeModifier(fromTime, toTime, fromSize, toSize, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromSize number
+---@param toSize number
+---@param function Ease
+function Particles:setSizeModifier(fromTime, toTime, fromSize, toSize, function) end
+
+---@param radius number
+function Particles:setSpherePositionInitializer(radius) end
+
+---@param radius number
+---@param innerRadius number
+function Particles:setSpherePositionInitializer(radius, innerRadius) end
+
+---@param frames number[]
+function Particles:setSpriteIntializer(frames) end
+
+---@param minFrame number
+---@param maxFrame number
+function Particles:setSpriteIntializer(minFrame, maxFrame) end
+
+---@param fromTime number
+---@param toTime number
+---@param frames number[]
+function Particles:setSpriteModifier(fromTime, toTime, frames) end
+
+---@param fromTime number
+---@param toTime number
+---@param frames number[]
+---@param functionType EaseType
+function Particles:setSpriteModifier(fromTime, toTime, frames, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param frames number[]
+---@param function Ease
+function Particles:setSpriteModifier(fromTime, toTime, frames, function) end
+
+---@param velocity Vector3
+function Particles:setVelocityInitializer(velocity) end
+
+---@param minVelocity Vector3
+---@param maxVelocity Vector3
+function Particles:setVelocityInitializer(minVelocity, maxVelocity) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromVelocity Vector3
+---@param toVelocity Vector3
+function Particles:setVelocityModifier(fromTime, toTime, fromVelocity, toVelocity) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromVelocity Vector3
+---@param toVelocity Vector3
+---@param functionType EaseType
+function Particles:setVelocityModifier(fromTime, toTime, fromVelocity, toVelocity, functionType) end
+
+---@param fromTime number
+---@param toTime number
+---@param fromVelocity Vector3
+---@param toVelocity Vector3
+---@param function Ease
+function Particles:setVelocityModifier(fromTime, toTime, fromVelocity, toVelocity, function) end
 
 
 ---@class ParticlesComponent
@@ -2699,81 +4087,254 @@ ParticlesComponent = {}
 ---@class PhysicsSystem
 PhysicsSystem = {}
 
-function PhysicsSystem:addBroadPhaseLayer3D() end
+---@param index number
+---@param groupsToInclude number
+function PhysicsSystem:addBroadPhaseLayer3D(index, groupsToInclude) end
 
-function PhysicsSystem:createBody2D() end
+---@param index number
+---@param groupsToInclude number
+---@param groupsToExclude number
+function PhysicsSystem:addBroadPhaseLayer3D(index, groupsToInclude, groupsToExclude) end
 
-function PhysicsSystem:createBody3D() end
+---@param entity Entity
+function PhysicsSystem:createBody2D(entity) end
 
-function PhysicsSystem:destroyBody2D() end
+---@param entity Entity
+function PhysicsSystem:createBody3D(entity) end
 
-function PhysicsSystem:destroyBody3D() end
+---@param body Body2DComponent
+function PhysicsSystem:destroyBody2D(body) end
 
-function PhysicsSystem:destroyJoint2D() end
+---@param body Body3DComponent
+function PhysicsSystem:destroyBody3D(body) end
 
-function PhysicsSystem:destroyJoint3D() end
+---@param joint Joint2DComponent
+function PhysicsSystem:destroyJoint2D(joint) end
 
-function PhysicsSystem:destroyShape2D() end
+---@param joint Joint3DComponent
+function PhysicsSystem:destroyJoint3D(joint) end
 
-function PhysicsSystem:destroyShape3D() end
+---@param body Body2DComponent
+---@param index number
+function PhysicsSystem:destroyShape2D(body, index) end
 
-function PhysicsSystem:loadBody2D() end
+---@param body Body3DComponent
+---@param index number
+function PhysicsSystem:destroyShape3D(body, index) end
 
-function PhysicsSystem:loadBody3D() end
+---@param entity Entity
+---@return boolean
+function PhysicsSystem:loadBody2D(entity) end
 
-function PhysicsSystem:loadConeJoint3D() end
+---@param entity Entity
+---@return boolean
+function PhysicsSystem:loadBody3D(entity) end
 
-function PhysicsSystem:loadDistanceJoint2D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector3
+---@param twistAxis Vector3
+---@return boolean
+function PhysicsSystem:loadConeJoint3D(joint, bodyA, bodyB, anchor, twistAxis) end
 
-function PhysicsSystem:loadDistanceJoint3D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchorA Vector2
+---@param anchorB Vector2
+---@param autoAnchors boolean
+---@param rope boolean
+---@return boolean
+function PhysicsSystem:loadDistanceJoint2D(entity, joint, bodyA, bodyB, anchorA, anchorB, autoAnchors, rope) end
 
-function PhysicsSystem:loadFixedJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchorA Vector3
+---@param anchorB Vector3
+---@param autoAnchors boolean
+---@return boolean
+function PhysicsSystem:loadDistanceJoint3D(joint, bodyA, bodyB, anchorA, anchorB, autoAnchors) end
 
-function PhysicsSystem:loadGearJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@return boolean
+function PhysicsSystem:loadFixedJoint3D(joint, bodyA, bodyB) end
 
-function PhysicsSystem:loadHingeJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param hingeA Entity
+---@param hingeB Entity
+---@param numTeethGearA number
+---@param numTeethGearB number
+---@return boolean
+function PhysicsSystem:loadGearJoint3D(joint, bodyA, bodyB, hingeA, hingeB, numTeethGearA, numTeethGearB) end
 
-function PhysicsSystem:loadMotorJoint2D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector3
+---@param axis Vector3
+---@param normal Vector3
+---@return boolean
+function PhysicsSystem:loadHingeJoint3D(joint, bodyA, bodyB, anchor, axis, normal) end
 
-function PhysicsSystem:loadMouseJoint2D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@return boolean
+function PhysicsSystem:loadMotorJoint2D(entity, joint, bodyA, bodyB) end
 
-function PhysicsSystem:loadPathJoint3D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param target Vector2
+---@return boolean
+function PhysicsSystem:loadMouseJoint2D(entity, joint, bodyA, bodyB, target) end
 
-function PhysicsSystem:loadPointJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param positions Vector3[]
+---@param tangents Vector3[]
+---@param normals Vector3[]
+---@param pathPosition Vector3
+---@param isLooping boolean
+---@return boolean
+function PhysicsSystem:loadPathJoint3D(joint, bodyA, bodyB, positions, tangents, normals, pathPosition, isLooping) end
 
-function PhysicsSystem:loadPrismaticJoint2D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector3
+---@return boolean
+function PhysicsSystem:loadPointJoint3D(joint, bodyA, bodyB, anchor) end
 
-function PhysicsSystem:loadPrismaticJoint3D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector2
+---@param axis Vector2
+---@return boolean
+function PhysicsSystem:loadPrismaticJoint2D(entity, joint, bodyA, bodyB, anchor, axis) end
 
-function PhysicsSystem:loadPulleyJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param sliderAxis Vector3
+---@param limitsMin number
+---@param limitsMax number
+---@return boolean
+function PhysicsSystem:loadPrismaticJoint3D(joint, bodyA, bodyB, sliderAxis, limitsMin, limitsMax) end
 
-function PhysicsSystem:loadRackAndPinionJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchorA Vector3
+---@param anchorB Vector3
+---@param fixedPointA Vector3
+---@param fixedPointB Vector3
+---@return boolean
+function PhysicsSystem:loadPulleyJoint3D(joint, bodyA, bodyB, anchorA, anchorB, fixedPointA, fixedPointB) end
 
-function PhysicsSystem:loadRevoluteJoint2D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param hinge Entity
+---@param slider Entity
+---@param numTeethRack number
+---@param numTeethGear number
+---@param rackLength number
+---@return boolean
+function PhysicsSystem:loadRackAndPinionJoint3D(joint, bodyA, bodyB, hinge, slider, numTeethRack, numTeethGear, rackLength) end
 
-function PhysicsSystem:loadSixDOFJoint3D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector2
+---@return boolean
+function PhysicsSystem:loadRevoluteJoint2D(entity, joint, bodyA, bodyB, anchor) end
 
-function PhysicsSystem:loadSwingTwistJoint3D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchorA Vector3
+---@param anchorB Vector3
+---@param axisX Vector3
+---@param axisY Vector3
+---@return boolean
+function PhysicsSystem:loadSixDOFJoint3D(joint, bodyA, bodyB, anchorA, anchorB, axisX, axisY) end
 
-function PhysicsSystem:loadWeldJoint2D() end
+---@param joint Joint3DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector3
+---@param twistAxis Vector3
+---@param planeAxis Vector3
+---@param normalHalfConeAngle number
+---@param planeHalfConeAngle number
+---@param twistMinAngle number
+---@param twistMaxAngle number
+---@return boolean
+function PhysicsSystem:loadSwingTwistJoint3D(joint, bodyA, bodyB, anchor, twistAxis, planeAxis, normalHalfConeAngle, planeHalfConeAngle, twistMinAngle, twistMaxAngle) end
 
-function PhysicsSystem:loadWheelJoint2D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector2
+---@return boolean
+function PhysicsSystem:loadWeldJoint2D(entity, joint, bodyA, bodyB, anchor) end
 
-function PhysicsSystem:removeBody2D() end
+---@param entity Entity
+---@param joint Joint2DComponent
+---@param bodyA Entity
+---@param bodyB Entity
+---@param anchor Vector2
+---@param axis Vector2
+---@return boolean
+function PhysicsSystem:loadWheelJoint2D(entity, joint, bodyA, bodyB, anchor, axis) end
 
-function PhysicsSystem:removeBody3D() end
+---@param entity Entity
+function PhysicsSystem:removeBody2D(entity) end
 
----@param self PhysicsSystem
----@param L lua_State
-function PhysicsSystem:setGravity(self, L) end
+---@param entity Entity
+function PhysicsSystem:removeBody3D(entity) end
 
----@param self PhysicsSystem
----@param L lua_State
-function PhysicsSystem:setGravity2D(self, L) end
+---@param gravity Vector3
+function PhysicsSystem:setGravity(gravity) end
 
----@param self PhysicsSystem
----@param L lua_State
-function PhysicsSystem:setGravity3D(self, L) end
+---@param x number
+---@param y number
+function PhysicsSystem:setGravity(x, y) end
+
+---@param x number
+---@param y number
+---@param z number
+function PhysicsSystem:setGravity(x, y, z) end
+
+---@param gravity Vector2
+function PhysicsSystem:setGravity2D(gravity) end
+
+---@param x number
+---@param y number
+function PhysicsSystem:setGravity2D(x, y) end
+
+---@param gravity Vector3
+function PhysicsSystem:setGravity3D(gravity) end
+
+---@param x number
+---@param y number
+---@param z number
+function PhysicsSystem:setGravity3D(x, y, z) end
 
 
 ---@class Plane
@@ -2786,29 +4347,50 @@ Plane = {}
 
 function Plane:Plane() end
 
----@param L lua_State
-function Plane:__eq(L) end
+function Plane:__eq() end
 
----@param L lua_State
-function Plane:__unm(L) end
+function Plane:__unm() end
 
----@param L lua_State
-function Plane:getDistance(L) end
+---@param rkPoint Vector3
+---@return number
+function Plane:getDistance(rkPoint) end
 
----@param L lua_State
-function Plane:getSide(L) end
+---@param rkPoint Vector3
+---@return Side
+function Plane:getSide(rkPoint) end
 
----@param L lua_State
-function Plane:normalize(L) end
+---@param centre Vector3
+---@param halfSize Vector3
+---@return Side
+function Plane:getSide(centre, halfSize) end
 
----@param L lua_State
-function Plane:normalized(L) end
+---@param rkBox AABB
+---@return Side
+function Plane:getSide(rkBox) end
 
----@param L lua_State
-function Plane:projectVector(L) end
+---@param obb OBB
+---@return Side
+function Plane:getSide(obb) end
 
----@param L lua_State
-function Plane:redefine(L) end
+---@param arg1 any
+---@return Plane
+function Plane:normalize(arg1) end
+
+---@return Plane
+function Plane:normalized() end
+
+---@param v Vector3
+---@return Vector3
+function Plane:projectVector(v) end
+
+---@param rkPoint0 Vector3
+---@param rkPoint1 Vector3
+---@param rkPoint2 Vector3
+function Plane:redefine(rkPoint0, rkPoint1, rkPoint2) end
+
+---@param rkNormal Vector3
+---@param rkPoint Vector3
+function Plane:redefine(rkNormal, rkPoint) end
 
 Plane.BOTH_SIDE = nil
 Plane.NEGATIVE_SIDE = nil
@@ -2827,37 +4409,159 @@ Points = {}
 ---@param Scene any
 function Points:Points(Scene) end
 
-function Points:addPoint() end
+---@param point PointData
+function Points:addPoint(point) end
 
-function Points:addSpriteFrame() end
+---@param position Vector3
+function Points:addPoint(position) end
+
+---@param x number
+---@param y number
+---@param z number
+function Points:addPoint(x, y, z) end
+
+---@param position Vector3
+---@param color Vector4
+function Points:addPoint(position, color) end
+
+---@param position Vector3
+---@param color Vector4
+---@param size number
+function Points:addPoint(position, color, size) end
+
+---@param position Vector3
+---@param color Vector4
+---@param size number
+---@param rotation number
+function Points:addPoint(position, color, size, rotation) end
+
+---@param position Vector3
+---@param color Vector4
+---@param size number
+---@param rotation number
+---@param textureRect Rect
+function Points:addPoint(position, color, size, rotation, textureRect) end
+
+---@param id number
+---@param name string
+---@param rect Rect
+function Points:addSpriteFrame(id, name, rect) end
+
+---@param name string
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Points:addSpriteFrame(name, x, y, width, height) end
+
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Points:addSpriteFrame(x, y, width, height) end
+
+---@param rect Rect
+function Points:addSpriteFrame(rect) end
 
 function Points:clearPoints() end
 
+---@return number
 function Points:getNumPoints() end
 
-function Points:getPoint() end
+---@param index number
+---@return PointData
+function Points:getPoint(index) end
 
 ---@param name string
 ---@return Vector4
 function Points:getShaderUniform(name) end
 
-function Points:isPointVisible() end
+---@param index number
+---@return boolean
+function Points:isPointVisible(index) end
 
-function Points:removePoint() end
+---@param index number
+function Points:removePoint(index) end
 
 ---@param name string
 ---@return boolean
 function Points:removeShaderUniform(name) end
 
-function Points:removeSpriteFrame() end
+---@param id number
+function Points:removeSpriteFrame(id) end
 
-function Points:setPointVisible() end
+---@param name string
+function Points:removeSpriteFrame(name) end
 
-function Points:setShaderUniform() end
+---@param index number
+---@param visible boolean
+function Points:setPointVisible(index, visible) end
 
-function Points:setTexture() end
+---@param name string
+---@param value Vector4
+function Points:setShaderUniform(name, value) end
 
-function Points:updatePoint() end
+---@param name string
+---@param value Vector3
+function Points:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector2
+function Points:setShaderUniform(name, value) end
+
+---@param name string
+---@param value number
+function Points:setShaderUniform(name, value) end
+
+---@param path string
+function Points:setTexture(path) end
+
+---@param id string
+---@param data TextureData
+function Points:setTexture(id, data) end
+
+---@param framebuffer Framebuffer
+function Points:setTexture(framebuffer) end
+
+---@param index number
+---@param point PointData
+function Points:updatePoint(index, point) end
+
+---@param index number
+---@param position Vector3
+function Points:updatePoint(index, position) end
+
+---@param index number
+---@param x number
+---@param y number
+---@param z number
+function Points:updatePoint(index, x, y, z) end
+
+---@param index number
+---@param position Vector3
+---@param color Vector4
+function Points:updatePoint(index, position, color) end
+
+---@param index number
+---@param position Vector3
+---@param color Vector4
+---@param size number
+function Points:updatePoint(index, position, color, size) end
+
+---@param index number
+---@param position Vector3
+---@param color Vector4
+---@param size number
+---@param rotation number
+function Points:updatePoint(index, position, color, size, rotation) end
+
+---@param index number
+---@param position Vector3
+---@param color Vector4
+---@param size number
+---@param rotation number
+---@param textureRect Rect
+function Points:updatePoint(index, position, color, size, rotation, textureRect) end
 
 function Points:updatePoints() end
 
@@ -2869,25 +4573,66 @@ Polygon = {}
 ---@param Scene any
 function Polygon:Polygon(Scene) end
 
-function Polygon:addVertex() end
+---@param vertex Vector3
+function Polygon:addVertex(vertex) end
 
+---@param x number
+---@param y number
+function Polygon:addVertex(x, y) end
+
+---@return AABB
 function Polygon:getAABB() end
 
 ---@param name string
 ---@return Vector4
 function Polygon:getShaderUniform(name) end
 
+---@return AABB
 function Polygon:getWorldAABB() end
 
 ---@param name string
 ---@return boolean
 function Polygon:removeShaderUniform(name) end
 
-function Polygon:setColor() end
+---@param color Vector4
+function Polygon:setColor(color) end
 
-function Polygon:setShaderUniform() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Polygon:setColor(red, green, blue, alpha) end
 
-function Polygon:setTexture() end
+---@param red number
+---@param green number
+---@param blue number
+function Polygon:setColor(red, green, blue) end
+
+---@param name string
+---@param value Vector4
+function Polygon:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector3
+function Polygon:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector2
+function Polygon:setShaderUniform(name, value) end
+
+---@param name string
+---@param value number
+function Polygon:setShaderUniform(name, value) end
+
+---@param path string
+function Polygon:setTexture(path) end
+
+---@param id string
+---@param data TextureData
+function Polygon:setTexture(id, data) end
+
+---@param framebuffer Framebuffer
+function Polygon:setTexture(framebuffer) end
 
 
 ---@class PositionAction
@@ -2923,17 +4668,48 @@ Progressbar = {}
 ---@param Scene any
 function Progressbar:Progressbar(Scene) end
 
+---@return Image
 function Progressbar:getFillObject() end
 
 function Progressbar:getProgressbarComponent() end
 
-function Progressbar:setFillColor() end
+---@param color Vector4
+function Progressbar:setFillColor(color) end
 
-function Progressbar:setFillMargin() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Progressbar:setFillColor(red, green, blue, alpha) end
 
-function Progressbar:setFillPatchMargin() end
+---@param red number
+---@param green number
+---@param blue number
+function Progressbar:setFillColor(red, green, blue) end
 
-function Progressbar:setFillTexture() end
+---@param margin number
+function Progressbar:setFillMargin(margin) end
+
+---@param marginLeft number
+---@param marginRight number
+---@param marginTop number
+---@param marginBottom number
+function Progressbar:setFillMargin(marginLeft, marginRight, marginTop, marginBottom) end
+
+---@param margin number
+function Progressbar:setFillPatchMargin(margin) end
+
+---@param marginLeft number
+---@param marginRight number
+---@param marginTop number
+---@param marginBottom number
+function Progressbar:setFillPatchMargin(marginLeft, marginRight, marginTop, marginBottom) end
+
+---@param path string
+function Progressbar:setFillTexture(path) end
+
+---@param framebuffer Framebuffer
+function Progressbar:setFillTexture(framebuffer) end
 
 
 ---@class ProgressbarComponent
@@ -2954,25 +4730,50 @@ function Quaternion:__mul() end
 
 function Quaternion:__sub() end
 
+---@return string
 function Quaternion:__tostring() end
 
 function Quaternion:__unm() end
 
-function Quaternion:dot() end
+---@param rkQ Quaternion
+---@return number
+function Quaternion:dot(rkQ) end
 
+---@return Quaternion
 function Quaternion:exp() end
 
-function Quaternion:fromAngle() end
+---@param angle number
+function Quaternion:fromAngle(angle) end
 
-function Quaternion:fromAngleAxis() end
+---@param angle number
+---@param rkAxis Vector3
+function Quaternion:fromAngleAxis(angle, rkAxis) end
 
-function Quaternion:fromAxes() end
+---@param akAxis Vector3
+function Quaternion:fromAxes(akAxis) end
 
-function Quaternion:fromEulerAngles() end
+---@param xaxis Vector3
+---@param yaxis Vector3
+---@param zaxis Vector3
+function Quaternion:fromAxes(xaxis, yaxis, zaxis) end
 
-function Quaternion:fromRotationMatrix() end
+---@param xAngle number
+---@param yAngle number
+---@param zAngle number
+---@param order RotationOrder
+function Quaternion:fromEulerAngles(xAngle, yAngle, zAngle, order) end
 
-function Quaternion:getEulerAngles() end
+---@param kRot Matrix3
+---@return Quaternion
+function Quaternion:fromRotationMatrix(kRot) end
+
+---@param kRot Matrix4
+---@return Quaternion
+function Quaternion:fromRotationMatrix(kRot) end
+
+---@param order RotationOrder
+---@return Vector3
+function Quaternion:getEulerAngles(order) end
 
 ---@return number
 function Quaternion:getPitch() end
@@ -2980,15 +4781,19 @@ function Quaternion:getPitch() end
 ---@return number
 function Quaternion:getRoll() end
 
+---@return Matrix4
 function Quaternion:getRotationMatrix() end
 
 ---@return number
 function Quaternion:getYaw() end
 
+---@return Quaternion
 function Quaternion:inverse() end
 
+---@return Quaternion
 function Quaternion:log() end
 
+---@return number
 function Quaternion:norm() end
 
 ---@param arg1 any
@@ -3002,19 +4807,62 @@ function Quaternion:normalizeL(arg1) end
 ---@return Quaternion
 function Quaternion:normalized() end
 
+---@return Quaternion
 function Quaternion:unitInverse() end
 
-function Quaternion:xAxis() end
+---@param arg1 any
+---@return Vector3
+function Quaternion:xAxis(arg1) end
 
-function Quaternion:yAxis() end
+---@param arg1 any
+---@return Vector3
+function Quaternion:yAxis(arg1) end
 
-function Quaternion:zAxis() end
+---@param arg1 any
+---@return Vector3
+function Quaternion:zAxis(arg1) end
 
-function Quaternion.nlerp() end
+---@param forward Vector3
+---@return Quaternion
+function Quaternion.lookRotation(forward) end
 
-function Quaternion.slerp() end
+---@param forward Vector3
+---@param up Vector3
+---@return Quaternion
+function Quaternion.lookRotation(forward, up) end
 
-function Quaternion.slerpExtraSpins() end
+---@param fT number
+---@param rkP Quaternion
+---@param rkQ Quaternion
+---@return Quaternion
+function Quaternion.nlerp(fT, rkP, rkQ) end
+
+---@param fT number
+---@param rkP Quaternion
+---@param rkQ Quaternion
+---@param shortestPath boolean
+---@return Quaternion
+function Quaternion.nlerp(fT, rkP, rkQ, shortestPath) end
+
+---@param t number
+---@param q1 Quaternion
+---@param q2 Quaternion
+---@return Quaternion
+function Quaternion.slerp(t, q1, q2) end
+
+---@param t number
+---@param q1 Quaternion
+---@param q2 Quaternion
+---@param shortestPath boolean
+---@return Quaternion
+function Quaternion.slerp(t, q1, q2, shortestPath) end
+
+---@param fT number
+---@param rkP Quaternion
+---@param rkQ Quaternion
+---@param iExtraSpins number
+---@return Quaternion
+function Quaternion.slerpExtraSpins(fT, rkP, rkQ, iExtraSpins) end
 
 ---@param fT number
 ---@param rkP Quaternion
@@ -3032,9 +4880,148 @@ Ray = {}
 
 function Ray:Ray() end
 
-function Ray:getPoint() end
+---@param distance number
+---@return Vector3
+function Ray:getPoint(distance) end
 
-function Ray:intersects() end
+---@param plane Plane
+---@return RayReturn
+function Ray:intersects(plane) end
+
+---@param box AABB
+---@return RayReturn
+function Ray:intersects(box) end
+
+---@param obb OBB
+---@return RayReturn
+function Ray:intersects(obb) end
+
+---@param sphere Sphere
+---@return RayReturn
+function Ray:intersects(sphere) end
+
+---@param body Body2D
+---@return RayReturn
+function Ray:intersects(body) end
+
+---@param body Body2D
+---@param shape number
+---@return RayReturn
+function Ray:intersects(body, shape) end
+
+---@param body Body3D
+---@return RayReturn
+function Ray:intersects(body) end
+
+---@param body Body3D
+---@param shape number
+---@return RayReturn
+function Ray:intersects(body, shape) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@return RayReturn
+function Ray:intersects(scene, raytest) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param onlyStatic boolean
+---@return RayReturn
+function Ray:intersects(scene, raytest, onlyStatic) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param categoryBits number
+---@param maskBits number
+---@return RayReturn
+function Ray:intersects(scene, raytest, categoryBits, maskBits) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param onlyStatic boolean
+---@param categoryBits number
+---@param maskBits number
+---@return RayReturn
+function Ray:intersects(scene, raytest, onlyStatic, categoryBits, maskBits) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param ignoreEntity Entity
+---@return RayReturn
+function Ray:intersects(scene, raytest, ignoreEntity) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param ignoreEntities Entity[]
+---@return RayReturn
+function Ray:intersects(scene, raytest, ignoreEntities) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param onlyStatic boolean
+---@param categoryBits number
+---@param maskBits number
+---@param ignoreEntity Entity
+---@return RayReturn
+function Ray:intersects(scene, raytest, onlyStatic, categoryBits, maskBits, ignoreEntity) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param onlyStatic boolean
+---@param categoryBits number
+---@param maskBits number
+---@param ignoreEntities Entity[]
+---@return RayReturn
+function Ray:intersects(scene, raytest, onlyStatic, categoryBits, maskBits, ignoreEntities) end
+
+---@param scene Scene
+---@param broadPhaseLayer3D number
+---@return RayReturn
+function Ray:intersects(scene, broadPhaseLayer3D) end
+
+---@param scene Scene
+---@param broadPhaseLayer3D number
+---@param categoryBits number
+---@param maskBits number
+---@return RayReturn
+function Ray:intersects(scene, broadPhaseLayer3D, categoryBits, maskBits) end
+
+---@param scene Scene
+---@param broadPhaseLayer3D number
+---@param ignoreEntity Entity
+---@return RayReturn
+function Ray:intersects(scene, broadPhaseLayer3D, ignoreEntity) end
+
+---@param scene Scene
+---@param broadPhaseLayer3D number
+---@param ignoreEntities Entity[]
+---@return RayReturn
+function Ray:intersects(scene, broadPhaseLayer3D, ignoreEntities) end
+
+---@param scene Scene
+---@param broadPhaseLayer3D number
+---@param categoryBits number
+---@param maskBits number
+---@param ignoreEntity Entity
+---@return RayReturn
+function Ray:intersects(scene, broadPhaseLayer3D, categoryBits, maskBits, ignoreEntity) end
+
+---@param scene Scene
+---@param broadPhaseLayer3D number
+---@param categoryBits number
+---@param maskBits number
+---@param ignoreEntities Entity[]
+---@return RayReturn
+function Ray:intersects(scene, broadPhaseLayer3D, categoryBits, maskBits, ignoreEntities) end
+
+---@param scene Scene
+---@param raytest RayFilter
+---@param onlyStatic boolean
+---@param categoryBits number
+---@param maskBits number
+---@param ignoreEntities Entity[]
+---@return any
+function Ray:intersects(scene, raytest, onlyStatic, categoryBits, maskBits, ignoreEntities) end
 
 Ray.NO_HIT = nil
 
@@ -3049,6 +5036,7 @@ function Rect:Rect() end
 
 function Rect:__eq() end
 
+---@return string
 function Rect:__tostring() end
 
 ---@param point Vector2
@@ -3059,6 +5047,7 @@ function Rect:contains(point) end
 ---@return Rect
 function Rect:fitOnRect(rect) end
 
+---@return Vector4
 function Rect:getVector() end
 
 ---@return boolean
@@ -3067,7 +5056,14 @@ function Rect:isNormalized() end
 ---@return boolean
 function Rect:isZero() end
 
-function Rect:setRect() end
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Rect:setRect(x, y, width, height) end
+
+---@param rect Rect
+function Rect:setRect(rect) end
 
 
 ---@class ReflectionProbe
@@ -3082,8 +5078,18 @@ function ReflectionProbe:refresh() end
 ---@param boxOffset Vector3
 function ReflectionProbe:setBoxOffset(boxOffset) end
 
+---@param x number
+---@param y number
+---@param z number
+function ReflectionProbe:setBoxOffset(x, y, z) end
+
 ---@param boxSize Vector3
 function ReflectionProbe:setBoxSize(boxSize) end
+
+---@param x number
+---@param y number
+---@param z number
+function ReflectionProbe:setBoxSize(x, y, z) end
 
 ---@param nearClip number
 ---@param farClip number
@@ -3227,33 +5233,26 @@ Scene = {}
 
 function Scene:Scene() end
 
----@param self Scene
----@param L lua_State
-function Scene:canReceiveUIEvents(self, L) end
+---@return boolean
+function Scene:canReceiveUIEvents() end
 
----@param self Scene
----@param L lua_State
-function Scene:destroy(self, L) end
+function Scene:destroy() end
 
----@param self Scene
----@param L lua_State
-function Scene:draw(self, L) end
+function Scene:draw() end
 
 ---@param self Scene
 ---@param L lua_State
 function Scene:getActionSystem(self, L) end
 
----@param self Scene
----@param L lua_State
-function Scene:getAmbientLight2DColorLinear(self, L) end
+---@return Vector3
+function Scene:getAmbientLight2DColorLinear() end
 
 ---@param self Scene
 ---@param L lua_State
 function Scene:getAudioSystem(self, L) end
 
----@param self Scene
----@param L lua_State
-function Scene:getGlobalIlluminationColorLinear(self, L) end
+---@return Vector3
+function Scene:getGlobalIlluminationColorLinear() end
 
 ---@param self Scene
 ---@param L lua_State
@@ -3263,9 +5262,10 @@ function Scene:getMeshSystem(self, L) end
 ---@param L lua_State
 function Scene:getPhysicsSystem(self, L) end
 
----@param self Scene
----@param L lua_State
-function Scene:getPostProcessUniform(self, L) end
+---@param index number
+---@param name string
+---@return Vector4
+function Scene:getPostProcessUniform(index, name) end
 
 ---@param self Scene
 ---@param L lua_State
@@ -3275,61 +5275,104 @@ function Scene:getRenderSystem(self, L) end
 ---@param L lua_State
 function Scene:getUISystem(self, L) end
 
----@param self Scene
----@param L lua_State
-function Scene:isPostProcessPassEnabled(self, L) end
+---@param index number
+---@return boolean
+function Scene:isPostProcessPassEnabled(index) end
 
----@param self Scene
----@param L lua_State
-function Scene:load(self, L) end
+function Scene:load() end
 
----@param self Scene
----@param L lua_State
-function Scene:removePostProcessUniform(self, L) end
+---@param index number
+---@param name string
+---@return boolean
+function Scene:removePostProcessUniform(index, name) end
 
----@param self Scene
----@param L lua_State
-function Scene:setAmbientLight2D(self, L) end
+---@param intensity number
+---@param color Vector3
+function Scene:setAmbientLight2D(intensity, color) end
 
----@param self Scene
----@param L lua_State
-function Scene:setBackgroundColor(self, L) end
+---@param intensity number
+function Scene:setAmbientLight2D(intensity) end
 
----@param self Scene
----@param L lua_State
-function Scene:setCamera(self, L) end
+---@param color Vector3
+function Scene:setAmbientLight2D(color) end
 
----@param self Scene
----@param L lua_State
-function Scene:setFixedResolutionSize(self, L) end
+---@param color Vector4
+function Scene:setBackgroundColor(color) end
 
----@param self Scene
----@param L lua_State
-function Scene:setGlobalIllumination(self, L) end
+---@param red number
+---@param green number
+---@param blue number
+function Scene:setBackgroundColor(red, green, blue) end
 
----@param self Scene
----@param L lua_State
-function Scene:setGravity2D(self, L) end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Scene:setBackgroundColor(red, green, blue, alpha) end
 
----@param self Scene
----@param L lua_State
-function Scene:setGravity3D(self, L) end
+---@param camera Camera
+function Scene:setCamera(camera) end
 
----@param self Scene
----@param L lua_State
-function Scene:setPostProcessPassEnabled(self, L) end
+---@param camera Entity
+function Scene:setCamera(camera) end
 
----@param self Scene
----@param L lua_State
-function Scene:setPostProcessUniform(self, L) end
+---@param width number
+---@param height number
+function Scene:setFixedResolutionSize(width, height) end
 
----@param self Scene
----@param L lua_State
-function Scene:update(self, L) end
+---@param intensity number
+---@param color Vector3
+function Scene:setGlobalIllumination(intensity, color) end
 
----@param self Scene
----@param L lua_State
-function Scene:updateCameraSize(self, L) end
+---@param intensity number
+function Scene:setGlobalIllumination(intensity) end
+
+---@param color Vector3
+function Scene:setGlobalIllumination(color) end
+
+---@param gravity Vector2
+function Scene:setGravity2D(gravity) end
+
+---@param x number
+---@param y number
+function Scene:setGravity2D(x, y) end
+
+---@param gravity Vector3
+function Scene:setGravity3D(gravity) end
+
+---@param x number
+---@param y number
+---@param z number
+function Scene:setGravity3D(x, y, z) end
+
+---@param index number
+---@param enabled boolean
+function Scene:setPostProcessPassEnabled(index, enabled) end
+
+---@param index number
+---@param name string
+---@param value Vector4
+function Scene:setPostProcessUniform(index, name, value) end
+
+---@param index number
+---@param name string
+---@param value Vector3
+function Scene:setPostProcessUniform(index, name, value) end
+
+---@param index number
+---@param name string
+---@param value Vector2
+function Scene:setPostProcessUniform(index, name, value) end
+
+---@param index number
+---@param name string
+---@param value number
+function Scene:setPostProcessUniform(index, name, value) end
+
+---@param dt number
+function Scene:update(dt) end
+
+function Scene:updateCameraSize() end
 
 
 ---@class SceneManager
@@ -3339,7 +5382,13 @@ function Scene:updateCameraSize(self, L) end
 ---@field sceneCount any
 SceneManager = {}
 
-function SceneManager.addChildScene() end
+---@param id number
+---@return boolean
+function SceneManager.addChildScene(id) end
+
+---@param name string
+---@return boolean
+function SceneManager.addChildScene(name) end
 
 function SceneManager.clearAll() end
 
@@ -3354,11 +5403,23 @@ function SceneManager.getSceneName(id) end
 ---@return string[]
 function SceneManager.getSceneNames() end
 
-function SceneManager.loadScene() end
+---@param name string
+---@return boolean
+function SceneManager.loadScene(name) end
+
+---@param id number
+---@return boolean
+function SceneManager.loadScene(id) end
 
 function SceneManager.registerScene() end
 
-function SceneManager.removeChildScene() end
+---@param id number
+---@return boolean
+function SceneManager.removeChildScene(id) end
+
+---@param name string
+---@return boolean
+function SceneManager.removeChildScene(name) end
 
 SceneManager.currentSceneId = nil
 SceneManager.currentSceneName = nil
@@ -3372,17 +5433,48 @@ Scrollbar = {}
 ---@param Scene any
 function Scrollbar:Scrollbar(Scene) end
 
+---@return Image
 function Scrollbar:getBarObject() end
 
 function Scrollbar:getScrollbarComponent() end
 
-function Scrollbar:setBarColor() end
+---@param color Vector4
+function Scrollbar:setBarColor(color) end
 
-function Scrollbar:setBarMargin() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Scrollbar:setBarColor(red, green, blue, alpha) end
 
-function Scrollbar:setBarPatchMargin() end
+---@param red number
+---@param green number
+---@param blue number
+function Scrollbar:setBarColor(red, green, blue) end
 
-function Scrollbar:setBarTexture() end
+---@param margin number
+function Scrollbar:setBarMargin(margin) end
+
+---@param marginLeft number
+---@param marginRight number
+---@param marginTop number
+---@param marginBottom number
+function Scrollbar:setBarMargin(marginLeft, marginRight, marginTop, marginBottom) end
+
+---@param margin number
+function Scrollbar:setBarPatchMargin(margin) end
+
+---@param marginLeft number
+---@param marginRight number
+---@param marginTop number
+---@param marginBottom number
+function Scrollbar:setBarPatchMargin(marginLeft, marginRight, marginTop, marginBottom) end
+
+---@param path string
+function Scrollbar:setBarTexture(path) end
+
+---@param framebuffer Framebuffer
+function Scrollbar:setBarTexture(framebuffer) end
 
 
 ---@class ScrollbarComponent
@@ -3396,19 +5488,96 @@ Shape = {}
 ---@param Scene any
 function Shape:Shape(Scene) end
 
-function Shape:createBox() end
+---@param width number
+---@param height number
+---@param depth number
+function Shape:createBox(width, height, depth) end
 
-function Shape:createCapsule() end
+---@param width number
+---@param height number
+---@param depth number
+---@param tiles number
+function Shape:createBox(width, height, depth, tiles) end
 
-function Shape:createCylinder() end
+---@param radius number
+---@param height number
+function Shape:createCapsule(radius, height) end
 
-function Shape:createPlane() end
+---@param baseRadius number
+---@param topRadius number
+---@param height number
+function Shape:createCapsule(baseRadius, topRadius, height) end
 
-function Shape:createSphere() end
+---@param radius number
+---@param height number
+---@param slices number
+---@param stacks number
+function Shape:createCapsule(radius, height, slices, stacks) end
 
-function Shape:createTorus() end
+---@param baseRadius number
+---@param topRadius number
+---@param height number
+---@param slices number
+---@param stacks number
+function Shape:createCapsule(baseRadius, topRadius, height, slices, stacks) end
 
-function Shape:createWall() end
+---@param radius number
+---@param height number
+function Shape:createCylinder(radius, height) end
+
+---@param baseRadius number
+---@param topRadius number
+---@param height number
+function Shape:createCylinder(baseRadius, topRadius, height) end
+
+---@param radius number
+---@param height number
+---@param slices number
+---@param stacks number
+function Shape:createCylinder(radius, height, slices, stacks) end
+
+---@param baseRadius number
+---@param topRadius number
+---@param height number
+---@param slices number
+---@param stacks number
+function Shape:createCylinder(baseRadius, topRadius, height, slices, stacks) end
+
+---@param width number
+---@param depth number
+function Shape:createPlane(width, depth) end
+
+---@param width number
+---@param depth number
+---@param tiles number
+function Shape:createPlane(width, depth, tiles) end
+
+---@param radius number
+function Shape:createSphere(radius) end
+
+---@param radius number
+---@param slices number
+---@param stacks number
+function Shape:createSphere(radius, slices, stacks) end
+
+---@param radius number
+---@param ringRadius number
+function Shape:createTorus(radius, ringRadius) end
+
+---@param radius number
+---@param ringRadius number
+---@param sides number
+---@param rings number
+function Shape:createTorus(radius, ringRadius, sides, rings) end
+
+---@param width number
+---@param height number
+function Shape:createWall(width, height) end
+
+---@param width number
+---@param height number
+---@param tiles number
+function Shape:createWall(width, height, tiles) end
 
 
 ---@class SkyBox
@@ -3426,25 +5595,73 @@ function SkyBox:getShaderUniform(name) end
 ---@return boolean
 function SkyBox:removeShaderUniform(name) end
 
-function SkyBox:setColor() end
+---@param color Vector4
+function SkyBox:setColor(color) end
 
-function SkyBox:setShaderUniform() end
+---@param r number
+---@param g number
+---@param b number
+function SkyBox:setColor(r, g, b) end
 
-function SkyBox:setTexture() end
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+function SkyBox:setColor(r, g, b, a) end
 
-function SkyBox:setTextureNegativeX() end
+---@param name string
+---@param value Vector4
+function SkyBox:setShaderUniform(name, value) end
 
-function SkyBox:setTextureNegativeY() end
+---@param name string
+---@param value Vector3
+function SkyBox:setShaderUniform(name, value) end
 
-function SkyBox:setTextureNegativeZ() end
+---@param name string
+---@param value Vector2
+function SkyBox:setShaderUniform(name, value) end
 
-function SkyBox:setTexturePositiveX() end
+---@param name string
+---@param value number
+function SkyBox:setShaderUniform(name, value) end
 
-function SkyBox:setTexturePositiveY() end
+---@param texture string
+function SkyBox:setTexture(texture) end
 
-function SkyBox:setTexturePositiveZ() end
+---@param texture string
+function SkyBox:setTextureNegativeX(texture) end
 
-function SkyBox:setTextures() end
+---@param texture string
+function SkyBox:setTextureNegativeY(texture) end
+
+---@param texture string
+function SkyBox:setTextureNegativeZ(texture) end
+
+---@param texture string
+function SkyBox:setTexturePositiveX(texture) end
+
+---@param texture string
+function SkyBox:setTexturePositiveY(texture) end
+
+---@param texture string
+function SkyBox:setTexturePositiveZ(texture) end
+
+---@param id string
+---@param texturePositiveX TextureData
+---@param textureNegativeX TextureData
+---@param texturePositiveY TextureData
+---@param textureNegativeY TextureData
+---@param texturePositiveZ TextureData
+---@param textureNegativeZ TextureData
+function SkyBox:setTextures(id, texturePositiveX, textureNegativeX, texturePositiveY, textureNegativeY, texturePositiveZ, textureNegativeZ) end
+
+---@param texturePositiveX string
+---@param textureNegativeX string
+---@param texturePositiveY string
+---@param textureNegativeY string
+---@param texturePositiveZ string
+---@param textureNegativeZ string
+function SkyBox:setTextures(texturePositiveX, textureNegativeX, texturePositiveY, textureNegativeY, texturePositiveZ, textureNegativeZ) end
 
 
 ---@class Sound
@@ -3507,9 +5724,29 @@ Sphere = {}
 
 function Sphere:Sphere() end
 
-function Sphere:contains() end
+---@param point Vector3
+---@return boolean
+function Sphere:contains(point) end
 
-function Sphere:intersects() end
+---@param other Sphere
+---@return boolean
+function Sphere:intersects(other) end
+
+---@param aabb AABB
+---@return boolean
+function Sphere:intersects(aabb) end
+
+---@param obb OBB
+---@return boolean
+function Sphere:intersects(obb) end
+
+---@param plane Plane
+---@return boolean
+function Sphere:intersects(plane) end
+
+---@param v Vector3
+---@return boolean
+function Sphere:intersects(v) end
 
 ---@param other Sphere
 function Sphere:merge(other) end
@@ -3517,6 +5754,7 @@ function Sphere:merge(other) end
 ---@return number
 function Sphere:surfaceArea() end
 
+---@return string
 function Sphere:toString() end
 
 ---@return number
@@ -3530,23 +5768,74 @@ Sprite = {}
 ---@param Scene any
 function Sprite:Sprite(Scene) end
 
-function Sprite:addFrame() end
+---@param id number
+---@param name string
+---@param rect Rect
+function Sprite:addFrame(id, name, rect) end
 
+---@param name string
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Sprite:addFrame(name, x, y, width, height) end
+
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Sprite:addFrame(x, y, width, height) end
+
+---@param rect Rect
+function Sprite:addFrame(rect) end
+
+---@return Occluder2D
 function Sprite:getOccluder2D() end
 
 function Sprite:pauseAnimation() end
 
-function Sprite:removeFrame() end
+---@param id number
+function Sprite:removeFrame(id) end
+
+---@param name string
+function Sprite:removeFrame(name) end
 
 function Sprite:removeOccluder2D() end
 
-function Sprite:setFrame() end
+---@param id number
+function Sprite:setFrame(id) end
 
-function Sprite:setSize() end
+---@param name string
+function Sprite:setFrame(name) end
 
-function Sprite:setTextureRect() end
+---@param width number
+---@param height number
+function Sprite:setSize(width, height) end
 
-function Sprite:startAnimation() end
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Sprite:setTextureRect(x, y, width, height) end
+
+---@param textureRect Rect
+function Sprite:setTextureRect(textureRect) end
+
+---@param frames number[]
+---@param framesTime number[]
+---@param loop boolean
+function Sprite:startAnimation(frames, framesTime, loop) end
+
+---@param startFrame number
+---@param endFrame number
+---@param interval number
+---@param loop boolean
+function Sprite:startAnimation(startFrame, endFrame, interval, loop) end
+
+---@param name string
+---@param interval number
+---@param loop boolean
+function Sprite:startAnimation(name, interval, loop) end
 
 function Sprite:stopAnimation() end
 
@@ -3558,7 +5847,16 @@ SpriteAnimation = {}
 ---@param Scene any
 function SpriteAnimation:SpriteAnimation(Scene) end
 
-function SpriteAnimation:setAnimation() end
+---@param frames number[]
+---@param framesTime number[]
+---@param loop boolean
+function SpriteAnimation:setAnimation(frames, framesTime, loop) end
+
+---@param startFrame number
+---@param endFrame number
+---@param interval number
+---@param loop boolean
+function SpriteAnimation:setAnimation(startFrame, endFrame, interval, loop) end
 
 
 ---@class System
@@ -3657,11 +5955,28 @@ function Terrain:removeSurfaceLayer(index) end
 ---@param path string
 function Terrain:setBlendMap(path) end
 
+---@param framebuffer Framebuffer
+function Terrain:setBlendMap(framebuffer) end
+
+---@param index number
+---@param path string
+function Terrain:setBlendMap(index, path) end
+
 ---@param path string
 function Terrain:setBlendMapIndex(path) end
 
+---@param framebuffer Framebuffer
+function Terrain:setBlendMapIndex(framebuffer) end
+
+---@param index number
+---@param path string
+function Terrain:setBlendMapIndex(index, path) end
+
 ---@param path string
 function Terrain:setHeightMap(path) end
+
+---@param framebuffer Framebuffer
+function Terrain:setHeightMap(framebuffer) end
 
 ---@param index number
 ---@param material Material
@@ -3701,20 +6016,34 @@ function Text:Text(Scene) end
 ---@return AABB
 function Text:getAABB() end
 
+---@return number
 function Text:getAscent() end
 
-function Text:getCharPosition() end
+---@param index number
+---@return Vector2
+function Text:getCharPosition(index) end
 
-function Text:getCharWidth() end
+---@param codepoint number
+---@return number
+function Text:getCharWidth(codepoint) end
 
+---@return number
 function Text:getDescent() end
 
+---@return string
 function Text:getFont() end
 
+---@param index number
+---@return string
+function Text:getFont(index) end
+
+---@return number
 function Text:getLineGap() end
 
+---@return number
 function Text:getLineHeight() end
 
+---@return number
 function Text:getNumChars() end
 
 ---@param name string
@@ -3728,13 +6057,45 @@ function Text:getWorldAABB() end
 ---@return boolean
 function Text:removeShaderUniform(name) end
 
-function Text:setColor() end
+---@param color Vector4
+function Text:setColor(color) end
 
-function Text:setFixedSize() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function Text:setColor(red, green, blue, alpha) end
 
-function Text:setFont() end
+---@param red number
+---@param green number
+---@param blue number
+function Text:setColor(red, green, blue) end
 
-function Text:setShaderUniform() end
+---@param fixedSize boolean
+function Text:setFixedSize(fixedSize) end
+
+---@param font string
+function Text:setFont(font) end
+
+---@param index number
+---@param font string
+function Text:setFont(index, font) end
+
+---@param name string
+---@param value Vector4
+function Text:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector3
+function Text:setShaderUniform(name, value) end
+
+---@param name string
+---@param value Vector2
+function Text:setShaderUniform(name, value) end
+
+---@param name string
+---@param value number
+function Text:setShaderUniform(name, value) end
 
 
 ---@class TextEdit
@@ -3744,25 +6105,79 @@ TextEdit = {}
 ---@param Scene any
 function TextEdit:TextEdit(Scene) end
 
+---@return number
 function TextEdit:getSelectionAnchor() end
 
+---@return number
 function TextEdit:getSelectionFocus() end
 
+---@return Polygon
 function TextEdit:getSelectionObject() end
 
 function TextEdit:getTextEditComponent() end
 
+---@return Text
 function TextEdit:getTextObject() end
 
-function TextEdit:setCursorColor() end
+---@param color Vector4
+function TextEdit:setCursorColor(color) end
 
-function TextEdit:setPlaceholderColor() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function TextEdit:setCursorColor(red, green, blue, alpha) end
 
-function TextEdit:setSelection() end
+---@param red number
+---@param green number
+---@param blue number
+function TextEdit:setCursorColor(red, green, blue) end
 
-function TextEdit:setSelectionColor() end
+---@param color Vector4
+function TextEdit:setPlaceholderColor(color) end
 
-function TextEdit:setTextColor() end
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function TextEdit:setPlaceholderColor(red, green, blue, alpha) end
+
+---@param red number
+---@param green number
+---@param blue number
+function TextEdit:setPlaceholderColor(red, green, blue) end
+
+---@param anchor number
+---@param focus number
+function TextEdit:setSelection(anchor, focus) end
+
+---@param color Vector4
+function TextEdit:setSelectionColor(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function TextEdit:setSelectionColor(red, green, blue, alpha) end
+
+---@param red number
+---@param green number
+---@param blue number
+function TextEdit:setSelectionColor(red, green, blue) end
+
+---@param color Vector4
+function TextEdit:setTextColor(color) end
+
+---@param red number
+---@param green number
+---@param blue number
+---@param alpha number
+function TextEdit:setTextColor(red, green, blue, alpha) end
+
+---@param red number
+---@param green number
+---@param blue number
+function TextEdit:setTextColor(red, green, blue) end
 
 
 ---@class TextEditComponent
@@ -3889,8 +6304,7 @@ function ThreadPoolManager:getQueueSize() end
 ---@return any
 function ThreadPoolManager.getInstance() end
 
----@param maxThreads number
-function ThreadPoolManager.initialize(maxThreads) end
+function ThreadPoolManager.initialize() end
 
 function ThreadPoolManager.shutdown() end
 
@@ -3910,9 +6324,73 @@ Tilemap = {}
 ---@param Scene any
 function Tilemap:Tilemap(Scene) end
 
-function Tilemap:addRect() end
+---@param id number
+---@param name string
+---@param texture string
+---@param texFilter TextureFilter
+---@param rect Rect
+function Tilemap:addRect(id, name, texture, texFilter, rect) end
 
-function Tilemap:addTile() end
+---@param id number
+---@param name string
+---@param texture string
+---@param rect Rect
+function Tilemap:addRect(id, name, texture, rect) end
+
+---@param id number
+---@param name string
+---@param rect Rect
+function Tilemap:addRect(id, name, rect) end
+
+---@param name string
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Tilemap:addRect(name, x, y, width, height) end
+
+---@param x number
+---@param y number
+---@param width number
+---@param height number
+function Tilemap:addRect(x, y, width, height) end
+
+---@param rect Rect
+function Tilemap:addRect(rect) end
+
+---@param id number
+---@param name string
+---@param rectId number
+---@param position Vector2
+---@param width number
+---@param height number
+function Tilemap:addTile(id, name, rectId, position, width, height) end
+
+---@param name string
+---@param rectId number
+---@param position Vector2
+---@param width number
+---@param height number
+function Tilemap:addTile(name, rectId, position, width, height) end
+
+---@param rectId number
+---@param position Vector2
+---@param width number
+---@param height number
+function Tilemap:addTile(rectId, position, width, height) end
+
+---@param name string
+---@param rectString string
+---@param position Vector2
+---@param width number
+---@param height number
+function Tilemap:addTile(name, rectString, position, width, height) end
+
+---@param rectString string
+---@param position Vector2
+---@param width number
+---@param height number
+function Tilemap:addTile(rectString, position, width, height) end
 
 function Tilemap:clearAll() end
 
@@ -3920,23 +6398,47 @@ function Tilemap:clearRects() end
 
 function Tilemap:clearTiles() end
 
-function Tilemap:findRectByString() end
+---@param name string
+---@return number
+function Tilemap:findRectByString(name) end
 
-function Tilemap:findTileByString() end
+---@param name string
+---@return number
+function Tilemap:findTileByString(name) end
 
 ---@return number
 function Tilemap:getHeight() end
 
-function Tilemap:getRect() end
+---@param id number
+---@return TileRectData
+function Tilemap:getRect(id) end
 
-function Tilemap:getTile() end
+---@param name string
+---@return TileRectData
+function Tilemap:getRect(name) end
+
+---@param id number
+---@return TileData
+function Tilemap:getTile(id) end
+
+---@param name string
+---@return TileData
+function Tilemap:getTile(name) end
 
 ---@return number
 function Tilemap:getWidth() end
 
-function Tilemap:removeRect() end
+---@param id number
+function Tilemap:removeRect(id) end
 
-function Tilemap:removeTile() end
+---@param name string
+function Tilemap:removeRect(name) end
+
+---@param id number
+function Tilemap:removeTile(id) end
+
+---@param name string
+function Tilemap:removeTile(name) end
 
 
 ---@class TilemapComponent
@@ -4064,19 +6566,68 @@ function UISystem:setAnchorReferenceSize(width, height) end
 ---@class UserSettings
 UserSettings = {}
 
-function UserSettings.getBoolForKey() end
+---@param arg1 any
+---@return any
+function UserSettings.getBoolForKey(arg1) end
 
-function UserSettings.getDataForKey() end
+---@param arg1 any
+---@param defaultValue boolean
+---@return boolean
+function UserSettings.getBoolForKey(arg1, defaultValue) end
 
-function UserSettings.getDoubleForKey() end
+---@param arg1 any
+---@return Data
+function UserSettings.getDataForKey(arg1) end
 
-function UserSettings.getFloatForKey() end
+---@param arg1 any
+---@param defaultValue Data
+---@return Data
+function UserSettings.getDataForKey(arg1, defaultValue) end
 
-function UserSettings.getIntegerForKey() end
+---@param arg1 any
+---@return number
+function UserSettings.getDoubleForKey(arg1) end
 
-function UserSettings.getLongForKey() end
+---@param arg1 any
+---@param defaultValue number
+---@return number
+function UserSettings.getDoubleForKey(arg1, defaultValue) end
 
-function UserSettings.getStringForKey() end
+---@param arg1 any
+---@return number
+function UserSettings.getFloatForKey(arg1) end
+
+---@param arg1 any
+---@param defaultValue number
+---@return number
+function UserSettings.getFloatForKey(arg1, defaultValue) end
+
+---@param arg1 any
+---@return number
+function UserSettings.getIntegerForKey(arg1) end
+
+---@param arg1 any
+---@param defaultValue number
+---@return number
+function UserSettings.getIntegerForKey(arg1, defaultValue) end
+
+---@param arg1 any
+---@return number
+function UserSettings.getLongForKey(arg1) end
+
+---@param arg1 any
+---@param defaultValue number
+---@return number
+function UserSettings.getLongForKey(arg1, defaultValue) end
+
+---@param arg1 any
+---@return string
+function UserSettings.getStringForKey(arg1) end
+
+---@param arg1 any
+---@param defaultValue string
+---@return string
+function UserSettings.getStringForKey(arg1, defaultValue) end
 
 ---@param arg1 any
 function UserSettings.removeKey(arg1) end
@@ -4133,6 +6684,7 @@ function Vector2:__mul() end
 
 function Vector2:__sub() end
 
+---@return string
 function Vector2:__tostring() end
 
 function Vector2:__unm() end
@@ -4225,6 +6777,7 @@ function Vector3:__mul() end
 
 function Vector3:__sub() end
 
+---@return string
 function Vector3:__tostring() end
 
 function Vector3:__unm() end
@@ -4313,6 +6866,7 @@ function Vector4:__mul() end
 
 function Vector4:__sub() end
 
+---@return string
 function Vector4:__tostring() end
 
 function Vector4:__unm() end
